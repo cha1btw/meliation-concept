@@ -33,7 +33,7 @@ export function SwatchCard({ item, hint }: { item: Item; hint: string }) {
           </div>
           <div className="flip-face flip-back flex flex-col justify-end bg-accent-strong p-7 text-on-accent">
             <p className="font-display text-3xl font-medium leading-tight">{item.backTitle}</p>
-            <ul className="mt-6 space-y-3 border-t border-white/25 pt-6 text-[0.98rem] leading-snug text-white/90">
+            <ul className="mt-6 space-y-3 border-t border-on-accent/20 pt-6 text-[0.98rem] leading-snug text-on-accent/80">
               {item.backLines.map((line) => (
                 <li key={line}>{line}</li>
               ))}

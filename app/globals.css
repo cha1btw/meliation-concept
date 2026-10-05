@@ -1,35 +1,22 @@
 @import "tailwindcss";
 
 /*
-  Palette: neutral monochrome + one accent sampled from the hero silk footage.
-  Light and dark follow the system setting; the hero video section is media
-  and looks the same in both.
+  Noir & Champagne: one dark theme on purpose. Graphite black, ivory text and a
+  champagne accent that matches the graded silk in the hero and the gold
+  sequins in Melissa's photos. Change the whole palette here.
 */
 :root {
-  --paper: #f2f2f0;
-  --paper-2: #e8e8e5;
-  --ink: #151516;
-  --muted: #55555a;
-  --line: #d3d3cf;
-  --accent: #9e1f47;
-  --accent-strong: #9e1f47;
-  --on-accent: #ffffff;
-  --scrim: 8, 6, 10;
-  --tshadow: 0 1px 2px rgba(8, 6, 10, 0.9), 0 3px 12px rgba(8, 6, 10, 0.6), 0 10px 44px rgba(8, 6, 10, 0.55);
-  color-scheme: light dark;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --paper: #111113;
-    --paper-2: #1a1a1d;
-    --ink: #ecebe8;
-    --muted: #a5a4a8;
-    --line: #2c2c30;
-    --accent: #e0577f;
-    --accent-strong: #a8234d;
-    --on-accent: #ffffff;
-  }
+  --paper: #0f0e0d;
+  --paper-2: #191816;
+  --ink: #ece5d8;
+  --muted: #a39b8f;
+  --line: #2b2925;
+  --accent: #c9a979;
+  --accent-strong: #c9a979;
+  --on-accent: #14120f;
+  --scrim: 10, 9, 8;
+  --tshadow: 0 1px 2px rgba(10, 9, 8, 0.9), 0 3px 12px rgba(10, 9, 8, 0.6), 0 10px 44px rgba(10, 9, 8, 0.55);
+  color-scheme: dark;
 }
 
 @theme inline {
@@ -60,7 +47,7 @@ body {
 }
 
 ::selection {
-  background: var(--accent-strong);
+  background: var(--accent);
   color: var(--on-accent);
 }
 
@@ -76,7 +63,7 @@ body::after {
   inset: 0;
   z-index: 90;
   pointer-events: none;
-  opacity: 0.06;
+  opacity: 0.05;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
@@ -89,48 +76,48 @@ body::after {
 
 /* Button: one shape for the whole page (sharp corners), one contact intent. */
 @layer components {
-.btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.6rem;
-  min-height: 3rem;
-  padding: 0 1.4rem;
-  background: var(--accent-strong);
-  color: var(--on-accent);
-  font-size: 0.95rem;
-  font-weight: 500;
-  letter-spacing: 0.01em;
-  white-space: nowrap;
-  transition: background-color 0.2s ease, transform 0.15s ease;
-}
-.btn:hover {
-  background: color-mix(in oklab, var(--accent-strong) 86%, black);
-}
-.btn:active {
-  transform: translateY(1px) scale(0.99);
-}
-.btn svg {
-  transition: transform 0.2s ease;
-}
-.btn:hover svg {
-  transform: translateX(3px);
-}
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    min-height: 3rem;
+    padding: 0 1.5rem;
+    background: var(--accent);
+    color: var(--on-accent);
+    font-size: 0.95rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+    transition: background-color 0.25s ease, transform 0.15s ease;
+  }
+  .btn:hover {
+    background: color-mix(in oklab, var(--accent) 80%, white);
+  }
+  .btn:active {
+    transform: translateY(1px) scale(0.99);
+  }
+  .btn svg {
+    transition: transform 0.2s ease;
+  }
+  .btn:hover svg {
+    transform: translateX(3px);
+  }
 }
 
-/* ---------- Scroll-video hero ---------- */
+/* ---------- Scroll-video hero (runs on every device) ---------- */
 
 .hero {
   position: relative;
   height: 600vh;
-  background: #120a0d;
-  color: #fff;
+  background: #0b0a09;
+  color: var(--ink);
 }
 .hero-stage {
   position: sticky;
   top: 0;
   height: 100vh;
-  height: 100dvh;
+  height: 100svh;
   overflow: hidden;
 }
 .hero-poster,
@@ -151,16 +138,14 @@ body::after {
 .hero-stage.video-ready .hero-video {
   opacity: 1;
 }
-.hero-static-bg {
-  display: none;
-}
 .hero-scrim {
   position: absolute;
   inset: 0;
   pointer-events: none;
   background:
-    linear-gradient(180deg, rgba(var(--scrim), 0.55) 0%, rgba(var(--scrim), 0) 22%),
-    radial-gradient(ellipse 120% 90% at 50% 45%, rgba(var(--scrim), 0) 30%, rgba(var(--scrim), 0.6) 100%);
+    linear-gradient(180deg, rgba(var(--scrim), 0.6) 0%, rgba(var(--scrim), 0) 24%),
+    linear-gradient(0deg, rgba(var(--scrim), 0.85) 0%, rgba(var(--scrim), 0) 38%),
+    radial-gradient(ellipse 120% 90% at 50% 45%, rgba(var(--scrim), 0) 30%, rgba(var(--scrim), 0.55) 100%);
 }
 
 .band {
@@ -178,7 +163,7 @@ body::after {
   inset: -4%;
   pointer-events: none;
   opacity: calc(0.25 + 0.75 * var(--k, 1));
-  background: radial-gradient(ellipse 70% 62% at 22% 72%, rgba(var(--scrim), 0.62) 0%, rgba(var(--scrim), 0.4) 46%, rgba(var(--scrim), 0) 76%);
+  background: radial-gradient(ellipse 70% 62% at 22% 72%, rgba(var(--scrim), 0.6) 0%, rgba(var(--scrim), 0.38) 46%, rgba(var(--scrim), 0) 76%);
 }
 .band-inner {
   position: relative;
@@ -218,47 +203,8 @@ body::after {
   white-space: nowrap;
 }
 
-/*
-  Static-hero gate. These five queries must stay character-for-character
-  identical to HERO_GATES in components/ScrollVideoHero.tsx.
-*/
-@media (max-width: 720px), (orientation: portrait) and (max-width: 1024px), (orientation: portrait) and (pointer: coarse), (orientation: landscape) and (pointer: coarse) and (max-height: 560px), (prefers-reduced-motion: reduce) {
-  .hero {
-    height: auto;
-  }
-  .hero-stage {
-    position: relative;
-    min-height: 100svh;
-    height: auto;
-  }
-  .hero-video,
-  .hero-poster {
-    display: none;
-  }
-  .hero-static-bg {
-    display: block;
-    position: absolute;
-    inset: 0;
-    background: #120a0d url("/assets/hero-poster-mobile.jpg") center / cover no-repeat;
-  }
-  .band {
-    display: none;
-  }
-  .band.band-settle {
-    display: flex;
-    position: relative;
-    min-height: 100svh;
-    opacity: 1;
-    --k: 1;
-  }
-}
+/* ---------- Scroll-driven reveals (pure CSS, no JavaScript) ---------- */
 
-/* ---------- Scroll-driven decoration (no JavaScript) ---------- */
-
-.thread-path {
-  stroke-dasharray: 1;
-  stroke-dashoffset: 0;
-}
 .stitch-line {
   --stitch-anim: stitch-grow-y;
   transform-origin: center top;
@@ -271,38 +217,23 @@ body::after {
 }
 
 @supports (animation-timeline: view()) {
-  @media (prefers-reduced-motion: no-preference) {
-    .thread-wrap {
-      view-timeline: --thread block;
-    }
-    .thread-path {
-      animation: thread-draw linear both;
-      animation-timeline: --thread;
-      animation-range: cover 50vh cover calc(100% - 50vh);
-    }
-
-    .reveal {
-      animation: reveal cubic-bezier(0.2, 0.7, 0.2, 1) both;
-      animation-timeline: view();
-      animation-range: entry 0% cover 28%;
-    }
-
-    .stitch-line {
-      animation: var(--stitch-anim) linear both;
-      animation-timeline: view();
-      animation-range: entry 30% cover 55%;
-    }
+  .reveal {
+    animation: reveal cubic-bezier(0.2, 0.7, 0.2, 1) both;
+    animation-timeline: view();
+    animation-range: entry 0% cover 28%;
+  }
+  .reveal-img {
+    animation: reveal-img cubic-bezier(0.2, 0.7, 0.2, 1) both;
+    animation-timeline: view();
+    animation-range: entry 0% cover 40%;
+  }
+  .stitch-line {
+    animation: var(--stitch-anim) linear both;
+    animation-timeline: view();
+    animation-range: entry 30% cover 55%;
   }
 }
 
-@keyframes thread-draw {
-  from {
-    stroke-dashoffset: 1;
-  }
-  to {
-    stroke-dashoffset: 0;
-  }
-}
 @keyframes reveal {
   from {
     opacity: 0;
@@ -310,6 +241,17 @@ body::after {
   }
   to {
     opacity: 1;
+    transform: none;
+  }
+}
+/* Photos unveil like fabric being drawn back. */
+@keyframes reveal-img {
+  from {
+    clip-path: inset(18% 0 18% 0);
+    transform: scale(1.08);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
     transform: none;
   }
 }
@@ -395,18 +337,5 @@ details[open] .rotate-open {
 @media (pointer: coarse) {
   .btn {
     min-height: 48px;
-  }
-}
-
-/* Reduced motion: everything lands in its final state. */
-@media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
-  *,
-  *::before,
-  *::after {
-    transition-duration: 0.01ms !important;
-    transition-delay: 0s !important;
   }
 }

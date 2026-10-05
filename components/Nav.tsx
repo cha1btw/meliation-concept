@@ -4,7 +4,6 @@ import { useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import type { Dict } from "@/content/types";
-import logoDark from "@/public/assets/logo-dark.png";
 import logoWhite from "@/public/assets/logo-white.png";
 
 const NAV_HEIGHT = 68;
@@ -54,22 +53,11 @@ export function Nav({ nav }: { nav: Dict["nav"] }) {
         {nav.skip}
       </a>
       <nav
-        className="mx-auto flex h-[68px] w-full max-w-[1400px] items-center justify-between gap-4 px-5 text-ink group-data-[over=true]:text-white md:px-10 lg:px-14"
+        className="mx-auto flex h-[68px] w-full max-w-[1400px] items-center justify-between gap-4 px-5 text-ink md:px-10 lg:px-14"
         aria-label="Main"
       >
-        <a href="#top" aria-label={nav.home} className="relative block h-7 w-[81px] shrink-0">
-          <Image
-            src={logoWhite}
-            alt=""
-            priority
-            className="absolute inset-0 h-7 w-auto opacity-100 transition-opacity duration-300 group-data-[over=false]:opacity-0 group-data-[over=false]:dark:opacity-100"
-          />
-          <Image
-            src={logoDark}
-            alt=""
-            priority
-            className="absolute inset-0 h-7 w-auto opacity-0 transition-opacity duration-300 group-data-[over=false]:opacity-100 group-data-[over=false]:dark:opacity-0"
-          />
+        <a href="#top" aria-label={nav.home} className="block h-7 shrink-0">
+          <Image src={logoWhite} alt="" priority className="h-7 w-auto" />
         </a>
 
         <ul className="hidden items-center gap-8 text-[0.95rem] lg:flex">

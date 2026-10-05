@@ -20,10 +20,8 @@ const siteUrl = process.env.VERCEL_PROJECT_PRODUCTION_URL
   : "http://localhost:3000";
 
 export const viewport: Viewport = {
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#f2f2f0" },
-    { media: "(prefers-color-scheme: dark)", color: "#111113" },
-  ],
+  themeColor: "#0f0e0d",
+  colorScheme: "dark",
 };
 
 export function buildMetadata(dict: Dict, path: "/" | "/en"): Metadata {

@@ -9,7 +9,6 @@ import { BriefBuilder } from "./BriefBuilder";
 import { Faq } from "./Faq";
 import { FinalCta } from "./FinalCta";
 import { Footer } from "./Footer";
-import { Thread } from "./Thread";
 
 export function Landing({ dict }: { dict: Dict }) {
   return (
@@ -17,8 +16,7 @@ export function Landing({ dict }: { dict: Dict }) {
       <Nav nav={dict.nav} />
       <main>
         <ScrollVideoHero hero={dict.hero} />
-        <div className="thread-wrap relative">
-          <Thread />
+        <div className="relative">
           <About about={dict.about} />
           <Works works={dict.works} />
           <Services services={dict.services} />

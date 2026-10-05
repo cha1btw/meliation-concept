@@ -5,19 +5,14 @@ import { ArrowRight } from "@phosphor-icons/react/dist/ssr";
 import type { Dict } from "@/content/types";
 
 /*
-  Static-hero gate. Must stay character-for-character identical to the
-  @media list in app/globals.css, otherwise CSS hides what JS loads (or the reverse).
+  The scrub runs on every device by request (including reduced-motion visitors).
+  Portrait screens get a lighter 9:16 crop: 2.2 MB instead of 5.8 MB.
+  The file is chosen once on load; object-fit: cover handles later rotation.
 */
-const HERO_GATES = [
-  "(max-width: 720px)",
-  "(orientation: portrait) and (max-width: 1024px)",
-  "(orientation: portrait) and (pointer: coarse)",
-  "(orientation: landscape) and (pointer: coarse) and (max-height: 560px)",
-  "(prefers-reduced-motion: reduce)",
-];
-
-const VIDEO_URL = "/assets/hero-scrub.mp4";
-const POSTER_URL = "/assets/hero-poster.jpg";
+const SOURCES = {
+  landscape: { video: "/assets/hero-scrub.mp4", poster: "/assets/hero-poster.jpg" },
+  portrait: { video: "/assets/hero-scrub-portrait.mp4", poster: "/assets/hero-poster-mobile.jpg" },
+};
 
 // Scroll progress band of each caption: [start, end] in 0..1 of the pinned hero.
 const BANDS: [number, number][] = [
@@ -83,8 +78,6 @@ export function ScrollVideoHero({ hero }: { hero: Dict["hero"] }) {
     let rafId: number | null = null;
     let lastTick = 0;
     let heroOnScreen = true;
-    let scrubOn = false;
-    let initDone = false;
     let objectUrl: string | null = null;
     let loadK = 0;
     let loadRaf: number | null = null;
@@ -178,13 +171,13 @@ export function ScrollVideoHero({ hero }: { hero: Dict["hero"] }) {
 
     const io = new IntersectionObserver(([entry]) => {
       heroOnScreen = entry.isIntersecting;
-      if (heroOnScreen && scrubOn) onScroll();
+      if (heroOnScreen) onScroll();
     });
     io.observe(heroEl);
 
     const onResize = () => {
       measure();
-      if (scrubOn) onScroll();
+      onScroll();
     };
     const ro = new ResizeObserver(onResize);
     ro.observe(heroEl);
@@ -203,11 +196,12 @@ export function ScrollVideoHero({ hero }: { hero: Dict["hero"] }) {
     };
 
     // ---- the video: poster first, then the whole file as a Blob (works on hosts without Range) ----
+    const src = window.matchMedia("(orientation: portrait)").matches ? SOURCES.portrait : SOURCES.landscape;
     const failVideo = () => stage.classList.add("video-failed");
     const loadVideo = async () => {
       const watchdog = setTimeout(() => abort.abort(), 20000);
       try {
-        const res = await fetch(VIDEO_URL, { signal: abort.signal, priority: "low" } as RequestInit);
+        const res = await fetch(src.video, { signal: abort.signal, priority: "low" } as RequestInit);
         if (!res.ok) throw new Error(String(res.status));
         const blob = await res.blob();
         clearTimeout(watchdog);
@@ -217,8 +211,15 @@ export function ScrollVideoHero({ hero }: { hero: Dict["hero"] }) {
         video.addEventListener(
           "canplay",
           () => {
-            requestSeek(heroProgress() * video.duration);
-            stage.classList.add("video-ready");
+            // iOS Safari only paints seeked frames after the element has played once.
+            video
+              .play()
+              .then(() => video.pause())
+              .catch(() => {})
+              .finally(() => {
+                requestSeek(heroProgress() * video.duration);
+                stage.classList.add("video-ready");
+              });
           },
           { once: true },
         );
@@ -228,60 +229,30 @@ export function ScrollVideoHero({ hero }: { hero: Dict["hero"] }) {
         if (!disposed) failVideo();
       }
     };
-    const initHeroOnce = () => {
-      if (initDone) return;
-      initDone = true;
-      poster.style.backgroundImage = `url('${POSTER_URL}')`;
-      let started = false;
-      const start = () => {
-        if (started) return;
-        started = true;
-        void loadVideo();
-      };
-      const img = new Image();
-      img.onload = start;
-      img.onerror = start;
-      img.src = POSTER_URL;
-      setTimeout(start, 4000);
-    };
 
-    // ---- live gate: arm or disarm the scrub on rotation, resize, preference flips ----
-    const clearInline = () => {
-      bandEls.forEach((el, i) => {
-        el.style.removeProperty("opacity");
-        el.style.removeProperty("--k");
-        el.classList.remove("is-live");
-        cache[i] = { op: -1, k: -1, live: false };
-      });
+    // Poster first, then the video, so the first paint never waits on 6 MB.
+    poster.style.backgroundImage = `url('${src.poster}')`;
+    let started = false;
+    const start = () => {
+      if (started || disposed) return;
+      started = true;
+      void loadVideo();
     };
-    const enableScrub = () => {
-      if (scrubOn) return;
-      scrubOn = true;
-      measure();
-      initHeroOnce();
-      window.addEventListener("scroll", onScroll, { passive: true });
-      cache.forEach((c) => Object.assign(c, { op: -1, k: -1, live: false }));
-      target = shown = heroProgress();
-      updateCaptions(shown);
-      if (loadK < 1 && loadRaf === null) runLoadRamp();
-      onScroll();
-    };
-    const disableScrub = () => {
-      if (!scrubOn) return;
-      scrubOn = false;
-      window.removeEventListener("scroll", onScroll);
-      if (rafId !== null) cancelAnimationFrame(rafId);
-      rafId = null;
-      clearInline();
-    };
-    const mqls = HERO_GATES.map((q) => window.matchMedia(q));
-    const applyHeroMode = () => (mqls.some((m) => m.matches) ? disableScrub() : enableScrub());
-    mqls.forEach((m) => m.addEventListener("change", applyHeroMode));
-    applyHeroMode();
+    const img = new Image();
+    img.onload = start;
+    img.onerror = start;
+    img.src = src.poster;
+    const startTimer = setTimeout(start, 4000);
+
+    measure();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    target = shown = heroProgress();
+    updateCaptions(shown);
+    runLoadRamp();
 
     return () => {
       disposed = true;
-      mqls.forEach((m) => m.removeEventListener("change", applyHeroMode));
+      clearTimeout(startTimer);
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onResize);
       video.removeEventListener("seeked", onSeeked);
@@ -310,16 +281,15 @@ export function ScrollVideoHero({ hero }: { hero: Dict["hero"] }) {
           aria-hidden="true"
           tabIndex={-1}
         />
-        <div className="hero-static-bg" aria-hidden="true" />
         <div className="hero-scrim" aria-hidden="true" />
 
         {hero.bands.map((band, i) => (
           <div key={band.title} className="band" data-band={i}>
             <div className={`band-inner ${pad}`}>
-              <p className="font-display text-[clamp(4.5rem,14vw,13rem)] font-medium leading-[0.95] tracking-[-0.02em]">
+              <p className="font-display text-[clamp(3.4rem,17vw,13rem)] font-medium leading-[0.95] tracking-[-0.02em]">
                 <Chars text={band.title} />
               </p>
-              <p className="fade-k mt-5 max-w-[34ch] text-lg leading-relaxed text-white/90 md:text-xl">{band.text}</p>
+              <p className="fade-k mt-5 max-w-[34ch] text-lg leading-relaxed text-ink/85 md:text-xl">{band.text}</p>
             </div>
           </div>
         ))}
@@ -329,7 +299,7 @@ export function ScrollVideoHero({ hero }: { hero: Dict["hero"] }) {
             <h1 className="max-w-[14ch] font-display text-[clamp(3rem,7vw,6.5rem)] font-medium leading-[1] tracking-[-0.015em] text-balance">
               <Chars text={hero.settle.title} spread={0.35} />
             </h1>
-            <p className="fade-k mt-6 max-w-[42ch] text-lg leading-relaxed text-white/90 md:text-xl">{hero.settle.sub}</p>
+            <p className="fade-k mt-6 max-w-[42ch] text-lg leading-relaxed text-ink/85 md:text-xl">{hero.settle.sub}</p>
             <div className="fade-k mt-9">
               <a href="#brief" className="btn">
                 {hero.settle.cta}

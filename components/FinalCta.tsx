@@ -6,7 +6,7 @@ import heroEnding from "@/public/assets/hero-ending.jpg";
 // Reuses the hero's resting frame, so the page ends on the same silk it opened with.
 export function FinalCta({ cta }: { cta: Dict["cta"] }) {
   return (
-    <section className="relative isolate overflow-hidden bg-[#120a0d] text-white" aria-labelledby="cta-title">
+    <section className="relative isolate overflow-hidden bg-[#0b0a09] text-ink" aria-labelledby="cta-title">
       <Image src={heroEnding} alt="" fill sizes="100vw" placeholder="blur" className="-z-10 object-cover" />
       <div
         aria-hidden="true"
@@ -19,7 +19,7 @@ export function FinalCta({ cta }: { cta: Dict["cta"] }) {
         >
           {cta.title}
         </h2>
-        <p className="reveal mt-7 max-w-[40ch] text-lg leading-relaxed text-white/90 md:text-xl [text-shadow:var(--tshadow)]">
+        <p className="reveal mt-7 max-w-[40ch] text-lg leading-relaxed text-ink/85 md:text-xl [text-shadow:var(--tshadow)]">
           {cta.text}
         </p>
         <div className="reveal mt-10">
