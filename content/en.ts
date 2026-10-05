@@ -18,6 +18,8 @@ export const en: Dict = {
     langAria: "Українська версія",
     home: "Meliation, back to top",
     skip: "Skip to content",
+    menuOpen: "Open menu",
+    menuClose: "Close menu",
   },
   hero: {
     bands: [

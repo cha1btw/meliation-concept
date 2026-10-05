@@ -22,7 +22,7 @@ export function About({ about }: { about: Dict["about"] }) {
               className="object-cover object-[50%_30%]"
             />
           </div>
-          <div className="reveal-img absolute bottom-0 right-0 aspect-[4/5] w-[42%] overflow-hidden bg-paper-2 shadow-[0_30px_60px_-20px_rgba(0,0,0,0.7)] ring-8 ring-paper">
+          <div className="reveal-img absolute bottom-0 right-0 aspect-[4/5] w-[42%] overflow-hidden bg-paper-2 shadow-[0_30px_60px_-24px_rgba(70,52,30,0.35)] ring-8 ring-paper">
             <Image
               src={photos.showroomChair}
               alt={about.photo2Alt}
@@ -35,7 +35,7 @@ export function About({ about }: { about: Dict["about"] }) {
         </div>
 
         <div className="lg:col-span-6 lg:col-start-7 lg:pt-6">
-          <h2 className="reveal max-w-[16ch] font-display text-[clamp(2.6rem,5vw,4.6rem)] font-medium leading-[1.02] tracking-[-0.01em] text-balance">
+          <h2 className="reveal max-w-[16ch] font-display text-[clamp(2.2rem,4.2vw,3.8rem)] font-light leading-[1.02] tracking-[-0.01em] text-balance">
             {about.title}
           </h2>
           <div className="mt-10 space-y-5 text-[1.075rem] leading-relaxed text-muted">
@@ -49,7 +49,7 @@ export function About({ about }: { about: Dict["about"] }) {
           <dl className="mt-14 grid grid-cols-1 gap-x-10 sm:grid-cols-2">
             {about.facts.map((f) => (
               <div key={f.title} className="reveal border-t border-line py-6">
-                <dt className="font-display text-2xl font-medium">{f.title}</dt>
+                <dt className="font-display text-xl font-normal">{f.title}</dt>
                 <dd className="mt-2 max-w-[32ch] text-muted">{f.text}</dd>
               </div>
             ))}

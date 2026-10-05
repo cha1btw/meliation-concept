@@ -6,7 +6,7 @@ export function Process({ process }: { process: Dict["process"] }) {
       <div className="mx-auto w-full max-w-[1400px] px-5 md:px-10 lg:px-14">
         <h2
           id="process-title"
-          className="reveal font-display text-[clamp(2.6rem,5vw,4.6rem)] font-medium leading-[1.02] tracking-[-0.01em]"
+          className="reveal font-display text-[clamp(2.2rem,4.2vw,3.8rem)] font-light leading-[1.02] tracking-[-0.01em]"
         >
           {process.title}
         </h2>
@@ -24,7 +24,7 @@ export function Process({ process }: { process: Dict["process"] }) {
                   aria-hidden="true"
                   className="absolute left-0 top-0 grid h-4 w-4 place-items-center bg-paper before:absolute before:h-[2px] before:w-4 before:rotate-45 before:bg-accent after:absolute after:h-[2px] after:w-4 after:-rotate-45 after:bg-accent"
                 />
-                <h3 className="font-display text-[2rem] font-medium leading-none md:text-[2.3rem]">{step.verb}</h3>
+                <h3 className="font-display text-[1.5rem] font-normal leading-none md:text-[1.7rem]">{step.verb}</h3>
                 <p className="mt-4 max-w-[28ch] leading-relaxed text-muted">{step.text}</p>
               </li>
             ))}

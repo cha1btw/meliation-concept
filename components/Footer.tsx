@@ -2,20 +2,20 @@ import Image from "next/image";
 import { EnvelopeSimple, InstagramLogo, Phone } from "@phosphor-icons/react/dist/ssr";
 import type { Dict } from "@/content/types";
 import { contacts } from "@/lib/site";
-import logoWhite from "@/public/assets/logo-white.png";
+import logo from "@/public/assets/logo.png";
 
 export function Footer({ footer }: { footer: Dict["footer"] }) {
   return (
     <footer className="border-t border-line py-16 md:py-20">
       <div className="mx-auto grid w-full max-w-[1400px] grid-cols-1 gap-12 px-5 md:grid-cols-2 md:px-10 lg:grid-cols-12 lg:px-14">
         <div className="lg:col-span-4">
-          <Image src={logoWhite} alt="Meliation" className="h-9 w-auto" />
+          <Image src={logo} alt="Meliation" className="h-6 w-auto" />
         </div>
 
         <div className="grid grid-cols-2 gap-8 lg:col-span-4">
           {footer.cities.map((c) => (
             <div key={c.city}>
-              <p className="font-display text-2xl font-medium">{c.city}</p>
+              <p className="font-display text-xl font-normal">{c.city}</p>
               <p className="mt-2 text-sm text-muted">{c.role}</p>
               <p className="mt-1 text-sm text-muted">{c.tz}</p>
             </div>

@@ -24,6 +24,8 @@ export type Dict = {
     langAria: string;
     home: string;
     skip: string;
+    menuOpen: string;
+    menuClose: string;
   };
   hero: {
     bands: { title: string; text: string }[];

@@ -30,7 +30,7 @@ export function BriefBuilder({ brief }: { brief: Dict["brief"] }) {
         <div className="lg:col-span-7">
           <h2
             id="brief-title"
-            className="reveal max-w-[16ch] font-display text-[clamp(2.6rem,5vw,4.6rem)] font-medium leading-[1.02] tracking-[-0.01em] text-balance"
+            className="reveal max-w-[16ch] font-display text-[clamp(2.2rem,4.2vw,3.8rem)] font-light leading-[1.02] tracking-[-0.01em] text-balance"
           >
             {brief.title}
           </h2>
@@ -94,7 +94,7 @@ export function BriefBuilder({ brief }: { brief: Dict["brief"] }) {
               {brief.previewLabel}
             </p>
             <div className="mt-4 border border-line bg-paper-2 p-6 md:p-8" aria-live="polite">
-              <p className="font-display text-2xl leading-snug">{brief.greeting}</p>
+              <p className="font-display text-xl font-normal leading-snug">{brief.greeting}</p>
               <dl className="mt-6 space-y-3 text-[0.98rem]">
                 {lines.map((l) => (
                   <div key={l.id} className="flex gap-3">

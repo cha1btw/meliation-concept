@@ -1,22 +1,24 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { List, X } from "@phosphor-icons/react/dist/ssr";
 import type { Dict } from "@/content/types";
-import logoWhite from "@/public/assets/logo-white.png";
+import logo from "@/public/assets/logo.png";
 
 const NAV_HEIGHT = 68;
 
 export function Nav({ nav }: { nav: Dict["nav"] }) {
   const ref = useRef<HTMLElement>(null);
+  const [open, setOpen] = useState(false);
 
+  // Header is transparent while the hero is under it, solid afterwards.
   useEffect(() => {
     const header = ref.current;
     const hero = document.getElementById("top");
     if (!header || !hero) return;
     let io: IntersectionObserver | null = null;
-    // Root is the strip under the nav bar: the hero "is under the nav" while it intersects that strip.
     const observe = () => {
       io?.disconnect();
       io = new IntersectionObserver(
@@ -33,14 +35,29 @@ export function Nav({ nav }: { nav: Dict["nav"] }) {
     };
   }, []);
 
+  // Mobile menu: lock page scroll and close on Escape while open.
+  useEffect(() => {
+    if (!open) return;
+    const root = document.documentElement;
+    root.style.overflow = "hidden";
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
+    window.addEventListener("keydown", onKey);
+    return () => {
+      root.style.overflow = "";
+      window.removeEventListener("keydown", onKey);
+    };
+  }, [open]);
+
   const links = [
     { href: "#about", label: nav.about },
     { href: "#services", label: nav.services },
     { href: "#process", label: nav.process },
     { href: "#faq", label: nav.faq },
   ];
+  const close = () => setOpen(false);
 
   return (
+    <>
     <header
       ref={ref}
       data-over="true"
@@ -53,37 +70,87 @@ export function Nav({ nav }: { nav: Dict["nav"] }) {
         {nav.skip}
       </a>
       <nav
-        className="mx-auto flex h-[68px] w-full max-w-[1400px] items-center justify-between gap-4 px-5 text-ink md:px-10 lg:px-14"
+        className="relative z-10 mx-auto flex h-[68px] w-full max-w-[1400px] items-center justify-between gap-4 px-5 text-ink md:px-10 lg:px-14"
         aria-label="Main"
       >
-        <a href="#top" aria-label={nav.home} className="block h-7 shrink-0">
-          <Image src={logoWhite} alt="" priority className="h-7 w-auto" />
+        <a href="#top" aria-label={nav.home} className="block shrink-0" onClick={close}>
+          <Image src={logo} alt="" priority className="h-[18px] w-auto md:h-5" />
         </a>
 
-        <ul className="hidden items-center gap-8 text-[0.95rem] lg:flex">
+        <ul className="hidden items-center gap-9 text-[0.95rem] lg:flex">
           {links.map((l) => (
             <li key={l.href}>
-              <a href={l.href} className="opacity-80 transition-opacity hover:opacity-100">
+              <a href={l.href} className="text-ink/75 transition-colors hover:text-ink">
                 {l.label}
               </a>
             </li>
           ))}
         </ul>
 
-        <div className="flex items-center gap-3 md:gap-5">
+        <div className="flex items-center gap-1 md:gap-4">
           <Link
             href={nav.langHref}
             aria-label={nav.langAria}
             hrefLang={nav.langHref === "/" ? "uk" : "en"}
-            className="grid h-11 min-w-11 place-items-center text-sm font-medium tracking-wide opacity-80 transition-opacity hover:opacity-100"
+            className="grid h-11 min-w-11 place-items-center text-sm font-medium tracking-wide text-ink/75 transition-colors hover:text-ink"
           >
             {nav.langLabel}
           </Link>
-          <a href="#brief" className="btn min-h-10 px-4 text-sm md:min-h-11 md:px-5">
+          <a href="#brief" className="btn hidden min-h-11 px-5 text-sm lg:inline-flex">
             {nav.cta}
           </a>
+          <button
+            type="button"
+            className="grid h-11 w-11 place-items-center lg:hidden"
+            aria-expanded={open}
+            aria-controls="mobile-menu"
+            aria-label={open ? nav.menuClose : nav.menuOpen}
+            onClick={() => setOpen((v) => !v)}
+          >
+            {open ? <X size={24} aria-hidden="true" /> : <List size={24} aria-hidden="true" />}
+          </button>
         </div>
       </nav>
     </header>
+
+      {/*
+        Full-screen mobile menu. It lives outside <header> on purpose: the header's
+        backdrop-filter would turn it into the containing block and clip a fixed child.
+        z-40 keeps it under the header, so the logo and close button stay on top.
+      */}
+      <div
+        id="mobile-menu"
+        className={`fixed inset-0 z-40 bg-paper transition-opacity duration-300 lg:hidden ${
+          open ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0"
+        }`}
+        aria-hidden={!open}
+        inert={!open}
+      >
+        <div className="flex h-full flex-col px-5 pb-10 pt-[100px] md:px-10">
+          <ul className="space-y-1">
+            {links.map((l, i) => (
+              <li
+                key={l.href}
+                className="transition-[opacity,transform] duration-500"
+                style={{
+                  transitionDelay: open ? `${80 + i * 60}ms` : "0ms",
+                  opacity: open ? 1 : 0,
+                  transform: open ? "none" : "translateY(16px)",
+                }}
+              >
+                <a href={l.href} onClick={close} className="block py-3 font-display text-[2.4rem] font-light leading-tight">
+                  {l.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+          <div className="mt-auto">
+            <a href="#brief" onClick={close} className="btn w-full">
+              {nav.cta}
+            </a>
+          </div>
+        </div>
+      </div>
+    </>
   );
 }

@@ -1,17 +1,12 @@
 import type { Metadata, Viewport } from "next";
-import { Cormorant_Garamond, Geist } from "next/font/google";
+import { Raleway } from "next/font/google";
 import type { Dict } from "@/content/types";
 
-const cormorant = Cormorant_Garamond({
-  variable: "--font-cormorant",
+// One family for the whole site; the serif lives only in the logo.
+const raleway = Raleway({
+  variable: "--font-raleway",
   subsets: ["latin", "cyrillic"],
-  weight: ["400", "500", "600"],
-  display: "swap",
-});
-
-const geist = Geist({
-  variable: "--font-geist",
-  subsets: ["latin", "cyrillic"],
+  weight: ["300", "400", "500", "600"],
   display: "swap",
 });
 
@@ -20,8 +15,8 @@ const siteUrl = process.env.VERCEL_PROJECT_PRODUCTION_URL
   : "http://localhost:3000";
 
 export const viewport: Viewport = {
-  themeColor: "#0f0e0d",
-  colorScheme: "dark",
+  themeColor: "#f6f2eb",
+  colorScheme: "light",
 };
 
 export function buildMetadata(dict: Dict, path: "/" | "/en"): Metadata {
@@ -46,7 +41,7 @@ export function buildMetadata(dict: Dict, path: "/" | "/en"): Metadata {
 
 export function RootShell({ lang, children }: { lang: Dict["lang"]; children: React.ReactNode }) {
   return (
-    <html lang={lang} className={`${cormorant.variable} ${geist.variable} antialiased`}>
+    <html lang={lang} className={`${raleway.variable} antialiased`}>
       <body>{children}</body>
     </html>
   );

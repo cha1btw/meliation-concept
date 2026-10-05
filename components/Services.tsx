@@ -13,7 +13,7 @@ export function Services({ services }: { services: Dict["services"] }) {
       <div className="mx-auto w-full max-w-[1400px] px-5 md:px-10 lg:px-14">
         <h2
           id="services-title"
-          className="reveal font-display text-[clamp(2.6rem,5vw,4.6rem)] font-medium leading-[1.02] tracking-[-0.01em]"
+          className="reveal font-display text-[clamp(2.2rem,4.2vw,3.8rem)] font-light leading-[1.02] tracking-[-0.01em]"
         >
           {services.title}
         </h2>
@@ -33,7 +33,7 @@ export function Services({ services }: { services: Dict["services"] }) {
                   <div className="relative flex flex-col p-7 md:p-9">
                     <span className="tag-hole" aria-hidden="true" />
                     <span className="text-sm text-accent">{s.tag}</span>
-                    <h3 className="mt-10 max-w-[16ch] font-display text-[2rem] font-medium leading-[1.05] md:text-[2.4rem]">
+                    <h3 className="mt-10 max-w-[16ch] font-display text-[1.6rem] font-light leading-[1.15] md:text-[1.9rem]">
                       {s.title}
                     </h3>
                     <p className="mt-4 max-w-[34ch] text-muted">{s.short}</p>

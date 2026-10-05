@@ -7,7 +7,7 @@ export function Works({ works }: { works: Dict["works"] }) {
       <div className="mx-auto w-full max-w-[1400px] px-5 md:px-10 lg:px-14">
         <h2
           id="works-title"
-          className="reveal max-w-[18ch] font-display text-[clamp(2.6rem,5vw,4.6rem)] font-medium leading-[1.02] tracking-[-0.01em] text-balance"
+          className="reveal max-w-[18ch] font-display text-[clamp(2.2rem,4.2vw,3.8rem)] font-light leading-[1.02] tracking-[-0.01em] text-balance"
         >
           {works.title}
         </h2>
