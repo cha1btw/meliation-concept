@@ -1,26 +1,412 @@
 @import "tailwindcss";
 
+/*
+  Palette: neutral monochrome + one accent sampled from the hero silk footage.
+  Light and dark follow the system setting; the hero video section is media
+  and looks the same in both.
+*/
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --paper: #f2f2f0;
+  --paper-2: #e8e8e5;
+  --ink: #151516;
+  --muted: #55555a;
+  --line: #d3d3cf;
+  --accent: #9e1f47;
+  --accent-strong: #9e1f47;
+  --on-accent: #ffffff;
+  --scrim: 8, 6, 10;
+  --tshadow: 0 1px 2px rgba(8, 6, 10, 0.9), 0 3px 12px rgba(8, 6, 10, 0.6), 0 10px 44px rgba(8, 6, 10, 0.55);
+  color-scheme: light dark;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --paper: #111113;
+    --paper-2: #1a1a1d;
+    --ink: #ecebe8;
+    --muted: #a5a4a8;
+    --line: #2c2c30;
+    --accent: #e0577f;
+    --accent-strong: #a8234d;
+    --on-accent: #ffffff;
   }
 }
 
+@theme inline {
+  --color-paper: var(--paper);
+  --color-paper-2: var(--paper-2);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-accent: var(--accent);
+  --color-accent-strong: var(--accent-strong);
+  --color-on-accent: var(--on-accent);
+  --font-sans: var(--font-geist), system-ui, sans-serif;
+  --font-display: var(--font-cormorant), Georgia, serif;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  overflow-x: clip;
+}
+
+::selection {
+  background: var(--accent-strong);
+  color: var(--on-accent);
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+/* Grain lives on a fixed, non-interactive layer so it never repaints on scroll. */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  pointer-events: none;
+  opacity: 0.06;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.text-balance {
+  text-wrap: balance;
+}
+.text-pretty {
+  text-wrap: pretty;
+}
+
+/* Button: one shape for the whole page (sharp corners), one contact intent. */
+@layer components {
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  min-height: 3rem;
+  padding: 0 1.4rem;
+  background: var(--accent-strong);
+  color: var(--on-accent);
+  font-size: 0.95rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+  transition: background-color 0.2s ease, transform 0.15s ease;
+}
+.btn:hover {
+  background: color-mix(in oklab, var(--accent-strong) 86%, black);
+}
+.btn:active {
+  transform: translateY(1px) scale(0.99);
+}
+.btn svg {
+  transition: transform 0.2s ease;
+}
+.btn:hover svg {
+  transform: translateX(3px);
+}
+}
+
+/* ---------- Scroll-video hero ---------- */
+
+.hero {
+  position: relative;
+  height: 600vh;
+  background: #120a0d;
+  color: #fff;
+}
+.hero-stage {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
+}
+.hero-poster,
+.hero-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  background-size: cover;
+  background-position: center;
+}
+.hero-video {
+  opacity: 0;
+  transition: opacity 0.6s ease;
+  transform: translateZ(0);
+}
+.hero-stage.video-ready .hero-video {
+  opacity: 1;
+}
+.hero-static-bg {
+  display: none;
+}
+.hero-scrim {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg, rgba(var(--scrim), 0.55) 0%, rgba(var(--scrim), 0) 22%),
+    radial-gradient(ellipse 120% 90% at 50% 45%, rgba(var(--scrim), 0) 30%, rgba(var(--scrim), 0.6) 100%);
+}
+
+.band {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: flex-end;
+  pointer-events: none;
+  opacity: 0;
+  text-shadow: var(--tshadow);
+}
+.band::before {
+  content: "";
+  position: absolute;
+  inset: -4%;
+  pointer-events: none;
+  opacity: calc(0.25 + 0.75 * var(--k, 1));
+  background: radial-gradient(ellipse 70% 62% at 22% 72%, rgba(var(--scrim), 0.62) 0%, rgba(var(--scrim), 0.4) 46%, rgba(var(--scrim), 0) 76%);
+}
+.band-inner {
+  position: relative;
+  width: 100%;
+}
+.band .btn {
+  text-shadow: none;
+  pointer-events: auto;
+}
+.band.is-live {
+  pointer-events: auto;
+}
+/* A keyboard user tabbing into the hero CTA must see it, even before scrolling there. */
+.band-settle:focus-within {
+  opacity: 1 !important;
+  --k: 1 !important;
+}
+
+/* Characters rise in reading order like a ripple running through silk. */
+.band .c {
+  display: inline-block;
+  --kc: clamp(0, (var(--k, 0) - var(--th, 0)) * 2.6, 1);
+  opacity: var(--kc);
+  transform: translateY(calc((1 - var(--kc)) * 0.55em));
+}
+.band .fade-k {
+  opacity: clamp(0, (var(--k, 0) - 0.35) * 2.2, 1);
+  transform: translateY(calc((1 - clamp(0, (var(--k, 0) - 0.35) * 2.2, 1)) * 14px));
+}
+
+.sr-only-hero {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/*
+  Static-hero gate. These five queries must stay character-for-character
+  identical to HERO_GATES in components/ScrollVideoHero.tsx.
+*/
+@media (max-width: 720px), (orientation: portrait) and (max-width: 1024px), (orientation: portrait) and (pointer: coarse), (orientation: landscape) and (pointer: coarse) and (max-height: 560px), (prefers-reduced-motion: reduce) {
+  .hero {
+    height: auto;
+  }
+  .hero-stage {
+    position: relative;
+    min-height: 100svh;
+    height: auto;
+  }
+  .hero-video,
+  .hero-poster {
+    display: none;
+  }
+  .hero-static-bg {
+    display: block;
+    position: absolute;
+    inset: 0;
+    background: #120a0d url("/assets/hero-poster-mobile.jpg") center / cover no-repeat;
+  }
+  .band {
+    display: none;
+  }
+  .band.band-settle {
+    display: flex;
+    position: relative;
+    min-height: 100svh;
+    opacity: 1;
+    --k: 1;
+  }
+}
+
+/* ---------- Scroll-driven decoration (no JavaScript) ---------- */
+
+.thread-path {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 0;
+}
+.stitch-line {
+  --stitch-anim: stitch-grow-y;
+  transform-origin: center top;
+}
+@media (min-width: 1024px) {
+  .stitch-line {
+    --stitch-anim: stitch-grow;
+    transform-origin: left center;
+  }
+}
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .thread-wrap {
+      view-timeline: --thread block;
+    }
+    .thread-path {
+      animation: thread-draw linear both;
+      animation-timeline: --thread;
+      animation-range: cover 50vh cover calc(100% - 50vh);
+    }
+
+    .reveal {
+      animation: reveal cubic-bezier(0.2, 0.7, 0.2, 1) both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 28%;
+    }
+
+    .stitch-line {
+      animation: var(--stitch-anim) linear both;
+      animation-timeline: view();
+      animation-range: entry 30% cover 55%;
+    }
+  }
+}
+
+@keyframes thread-draw {
+  from {
+    stroke-dashoffset: 1;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes reveal {
+  from {
+    opacity: 0;
+    transform: translateY(36px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes stitch-grow {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+@keyframes stitch-grow-y {
+  from {
+    transform: scaleY(0);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}
+
+/* ---------- Swatch cards ---------- */
+
+.flip {
+  perspective: 1400px;
+}
+.flip-inner {
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.flip[data-flipped="true"] .flip-inner {
+  transform: rotateY(180deg);
+}
+@media (hover: hover) and (pointer: fine) {
+  .flip:hover .flip-inner {
+    transform: rotateY(180deg);
+  }
+}
+.flip-face {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+.flip-back {
+  position: absolute;
+  inset: 0;
+  transform: rotateY(180deg);
+}
+
+/* ---------- Service tags ---------- */
+
+.tag-hole {
+  position: absolute;
+  top: 1.25rem;
+  right: 1.25rem;
+  width: 0.9rem;
+  height: 0.9rem;
+  border-radius: 9999px;
+  background: var(--paper);
+  box-shadow: inset 0 0 0 1.5px var(--line);
+}
+.tag-hole::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 100%;
+  width: 1px;
+  height: 2.2rem;
+  background: var(--accent);
+  transform: rotate(-18deg);
+  transform-origin: bottom center;
+}
+details > summary {
+  list-style: none;
+  cursor: pointer;
+}
+details > summary::-webkit-details-marker {
+  display: none;
+}
+details[open] .rotate-open {
+  transform: rotate(45deg);
+}
+
+@media (pointer: coarse) {
+  .btn {
+    min-height: 48px;
+  }
+}
+
+/* Reduced motion: everything lands in its final state. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    transition-delay: 0s !important;
+  }
 }
