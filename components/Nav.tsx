@@ -12,6 +12,7 @@ const NAV_HEIGHT = 68;
 export function Nav({ nav }: { nav: Dict["nav"] }) {
   const ref = useRef<HTMLElement>(null);
   const [open, setOpen] = useState(false);
+  const [active, setActive] = useState<string | null>(null);
 
   // Header is transparent while the hero is under it, solid afterwards.
   useEffect(() => {
@@ -33,6 +34,24 @@ export function Nav({ nav }: { nav: Dict["nav"] }) {
       io?.disconnect();
       window.removeEventListener("resize", observe);
     };
+  }, []);
+
+  // Marks the menu link of the section that is crossing the middle of the screen.
+  // State changes only when the section changes, not on every scroll frame.
+  useEffect(() => {
+    const ids = ["about", "services", "process", "faq"];
+    const els = ids.map((id) => document.getElementById(id)).filter((el): el is HTMLElement => !!el);
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) {
+          if (e.isIntersecting) setActive(e.target.id);
+          else setActive((cur) => (cur === e.target.id ? null : cur));
+        }
+      },
+      { rootMargin: "-45% 0px -50% 0px" },
+    );
+    els.forEach((el) => io.observe(el));
+    return () => io.disconnect();
   }, []);
 
   // Mobile menu: lock page scroll and close on Escape while open.
@@ -77,10 +96,10 @@ export function Nav({ nav }: { nav: Dict["nav"] }) {
           <Image src={logo} alt="" priority className="h-[18px] w-auto md:h-5" />
         </a>
 
-        <ul className="hidden items-center gap-9 text-[0.95rem] lg:flex">
+        <ul className="hidden items-center gap-10 lg:flex">
           {links.map((l) => (
             <li key={l.href}>
-              <a href={l.href} className="text-ink/75 transition-colors hover:text-ink">
+              <a href={l.href} className="nav-link" aria-current={active === l.href.slice(1) ? "true" : undefined}>
                 {l.label}
               </a>
             </li>
@@ -92,11 +111,11 @@ export function Nav({ nav }: { nav: Dict["nav"] }) {
             href={nav.langHref}
             aria-label={nav.langAria}
             hrefLang={nav.langHref === "/" ? "uk" : "en"}
-            className="grid h-11 min-w-11 place-items-center text-sm font-medium tracking-wide text-ink/75 transition-colors hover:text-ink"
+            className="nav-link grid h-11 min-w-11 place-items-center"
           >
             {nav.langLabel}
           </Link>
-          <a href="#brief" className="btn hidden min-h-11 px-5 text-sm lg:inline-flex">
+          <a href="#brief" className="btn hidden min-h-11 px-6 text-[0.72rem] lg:inline-flex">
             {nav.cta}
           </a>
           <button

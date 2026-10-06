@@ -9,8 +9,9 @@ A redesign concept for [Meliation](https://instagram.com/meliation), a fabric so
 - **Flip cards** for the work gallery, a **numbered service list** with native `<details>`, a **stitched process timeline**.
 - **Closing section** repeats the hero split with the clip's resting frame, so the page ends where it opened.
 - **Brief builder.** Four choices and an optional note turn into a ready WhatsApp message with a live preview.
-- Ukrainian (`/`) and English (`/en`). One light "Milk & Ink" theme in Raleway; the whole palette lives in the `:root` block of `app/globals.css`.
-- Full-screen menu on phones.
+- Ukrainian (`/`) and English (`/en`). One light "Rose & Plum" theme in Raleway: every colour comes from the hero clip (cream, dusty rose, plum ink). The whole palette lives in the `:root` block of `app/globals.css`.
+- Full-screen menu on phones; on desktop the menu underlines the section you are in.
+- Motion is CSS only and every animation rests in its final state under `prefers-reduced-motion` (the hero clip then shows its last frame instead of playing).
 
 ## Stack
 
@@ -49,6 +50,8 @@ F="crop=764:1008:48:0,unsharp=5:5:0.4"
 ffmpeg -i source.mov -an -vf "$F,format=yuv420p" -c:v libx264 -preset veryslow -crf 20 -profile:v high -movflags +faststart public/assets/hero/ribbon.mp4
 ffmpeg -i source.mov -vf "$F" -frames:v 1 -q:v 3 public/assets/hero/ribbon-start.jpg
 ffmpeg -sseof -0.05 -i source.mov -vf "$F" -update 1 -frames:v 1 -q:v 3 public/assets/hero/ribbon-end.jpg
+# closing-section image: wider crop, so no edge artefacts show on the rose background
+ffmpeg -i source.mov -vf "crop=716:1008:72:0,unsharp=5:5:0.4" -frames:v 1 -q:v 3 public/assets/hero/ribbon-cta.jpg
 # link preview image (1200x630)
 ffmpeg -i public/assets/hero/ribbon-end.jpg -vf "crop=764:401:0:282,scale=1200:630:flags=lanczos" -q:v 3 public/assets/og.jpg
 ```

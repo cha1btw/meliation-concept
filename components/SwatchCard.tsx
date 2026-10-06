@@ -21,7 +21,7 @@ export function SwatchCard({ item, hint }: { item: Item; hint: string }) {
         onClick={() => setFlipped((v) => !v)}
       >
         <div className="flip-inner aspect-[4/5]">
-          <div className="flip-face absolute inset-0 overflow-hidden bg-paper-2">
+          <div className="flip-face absolute inset-0 overflow-hidden bg-blush">
             <Image
               src={photos[item.photo]}
               alt={item.alt}

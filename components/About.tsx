@@ -4,7 +4,7 @@ import { photos } from "@/lib/site";
 
 export function About({ about }: { about: Dict["about"] }) {
   return (
-    <section id="about" className="scroll-mt-20 py-28 md:py-40">
+    <section id="about" className="sect scroll-mt-20">
       <div className="mx-auto grid w-full max-w-[1400px] grid-cols-1 items-start gap-16 px-5 md:px-10 lg:grid-cols-12 lg:gap-10 lg:px-14">
         {/*
           Photos: a tall portrait with a smaller frame overlapping its lower corner.
@@ -35,7 +35,7 @@ export function About({ about }: { about: Dict["about"] }) {
         </div>
 
         <div className="lg:col-span-6 lg:col-start-7 lg:pt-6">
-          <h2 className="reveal max-w-[16ch] font-display text-[clamp(2.2rem,4.2vw,3.8rem)] font-light leading-[1.02] tracking-[-0.01em] text-balance">
+          <h2 className="reveal t-display max-w-[16ch]">
             {about.title}
           </h2>
           <div className="mt-10 space-y-5 text-[1.075rem] leading-relaxed text-muted">
@@ -47,8 +47,8 @@ export function About({ about }: { about: Dict["about"] }) {
           </div>
 
           <dl className="mt-14 grid grid-cols-1 gap-x-10 sm:grid-cols-2">
-            {about.facts.map((f) => (
-              <div key={f.title} className="reveal border-t border-line py-6">
+            {about.facts.map((f, i) => (
+              <div key={f.title} className="reveal border-t border-line py-7" style={{ "--i": i } as React.CSSProperties}>
                 <dt className="font-display text-xl font-normal">{f.title}</dt>
                 <dd className="mt-2 max-w-[32ch] text-muted">{f.text}</dd>
               </div>

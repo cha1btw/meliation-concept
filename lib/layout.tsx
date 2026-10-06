@@ -15,7 +15,7 @@ const siteUrl = process.env.VERCEL_PROJECT_PRODUCTION_URL
   : "http://localhost:3000";
 
 export const viewport: Viewport = {
-  themeColor: "#f6f2eb",
+  themeColor: "#f7f3ee",
   colorScheme: "light",
 };
 

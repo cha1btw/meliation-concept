@@ -7,24 +7,24 @@ import type { Dict } from "@/content/types";
 */
 export function Services({ services }: { services: Dict["services"] }) {
   return (
-    <section id="services" className="scroll-mt-20 py-24 md:py-32" aria-labelledby="services-title">
+    <section id="services" className="sect scroll-mt-20" aria-labelledby="services-title">
       <div className="mx-auto w-full max-w-[1400px] px-5 md:px-10 lg:px-14">
         <h2
           id="services-title"
-          className="reveal font-display text-[clamp(2.2rem,4.2vw,3.8rem)] font-light leading-[1.02] tracking-[-0.01em]"
+          className="reveal t-display"
         >
           {services.title}
         </h2>
-        <p className="reveal mt-5 max-w-[48ch] text-[1.075rem] leading-relaxed text-muted">{services.intro}</p>
+        <p className="reveal t-lead mt-6">{services.intro}</p>
 
         <div className="mt-14 border-t border-line md:mt-16">
           {services.items.map((s, i) => (
-            <details key={s.title} className="reveal group border-b border-line">
-              <summary className="grid grid-cols-[2.25rem_1fr_auto] gap-x-3 py-7 md:py-9 lg:grid-cols-12 lg:gap-x-10">
+            <details key={s.title} className="reveal group border-b border-line" style={{ "--i": i } as React.CSSProperties}>
+              <summary className="grid grid-cols-[2.25rem_1fr_auto] gap-x-3 py-8 md:py-11 lg:grid-cols-12 lg:gap-x-10">
                 <span className="col-start-1 row-start-1 pt-[0.45em] text-sm tabular-nums text-accent lg:col-span-1">
                   {String(i + 1).padStart(2, "0")}
                 </span>
-                <h3 className="col-start-2 row-start-1 font-display text-[1.45rem] font-light leading-[1.2] transition-colors group-hover:text-accent md:text-[1.8rem] lg:col-span-5">
+                <h3 className="col-start-2 row-start-1 font-display text-[1.45rem] font-light leading-[1.2] transition-[color,transform] duration-500 ease-[cubic-bezier(0.2,0.7,0.2,1)] group-hover:translate-x-2 group-hover:text-accent md:text-[1.8rem] lg:col-span-5">
                   {s.title}
                 </h3>
                 <p className="col-start-2 row-start-2 mt-2 max-w-[40ch] text-muted lg:col-span-4 lg:col-start-7 lg:row-start-1 lg:mt-0 lg:pt-[0.4em]">

@@ -25,16 +25,16 @@ export function BriefBuilder({ brief }: { brief: Dict["brief"] }) {
   const message = [brief.greeting, "", ...body].join("\n").trim();
 
   return (
-    <section id="brief" className="scroll-mt-20 py-24 md:py-32" aria-labelledby="brief-title">
+    <section id="brief" className="sect tone-sand scroll-mt-20" aria-labelledby="brief-title">
       <div className="mx-auto grid w-full max-w-[1400px] grid-cols-1 gap-14 px-5 md:px-10 lg:grid-cols-12 lg:gap-10 lg:px-14">
         <div className="lg:col-span-7">
           <h2
             id="brief-title"
-            className="reveal max-w-[16ch] font-display text-[clamp(2.2rem,4.2vw,3.8rem)] font-light leading-[1.02] tracking-[-0.01em] text-balance"
+            className="reveal t-display max-w-[16ch]"
           >
             {brief.title}
           </h2>
-          <p className="reveal mt-6 max-w-[54ch] text-[1.075rem] leading-relaxed text-muted text-pretty">{brief.intro}</p>
+          <p className="reveal t-lead mt-7">{brief.intro}</p>
 
           <form className="mt-14 space-y-10" onSubmit={(e) => e.preventDefault()}>
             {brief.groups.map((g) => (
@@ -47,7 +47,7 @@ export function BriefBuilder({ brief }: { brief: Dict["brief"] }) {
                       <label
                         key={o.value}
                         htmlFor={id}
-                        className="inline-flex min-h-11 cursor-pointer items-center border border-line px-4 text-[0.95rem] transition-colors hover:border-ink has-checked:border-accent-strong has-checked:bg-accent-strong has-checked:text-on-accent has-focus-visible:outline-2 has-focus-visible:outline-offset-2 has-focus-visible:outline-accent"
+                        className="inline-flex min-h-11 cursor-pointer items-center border border-control px-4 text-[0.95rem] transition-colors hover:border-ink has-checked:border-accent-strong has-checked:bg-accent-strong has-checked:text-on-accent has-focus-visible:outline-2 has-focus-visible:outline-offset-2 has-focus-visible:outline-accent"
                       >
                         <input
                           id={id}
@@ -78,7 +78,7 @@ export function BriefBuilder({ brief }: { brief: Dict["brief"] }) {
                 value={comment}
                 onChange={(e) => setComment(e.target.value)}
                 aria-describedby={`${uid}-comment-help`}
-                className="w-full resize-y border border-line bg-transparent px-4 py-3 text-base leading-relaxed transition-colors focus:border-accent-strong"
+                className="w-full resize-y border border-control bg-transparent px-4 py-3 text-base leading-relaxed transition-colors focus:border-accent-strong"
               />
               <p id={`${uid}-comment-help`} className="text-sm text-muted">
                 {brief.commentHelp}
@@ -93,7 +93,7 @@ export function BriefBuilder({ brief }: { brief: Dict["brief"] }) {
             <p id={`${uid}-preview`} className="text-[0.95rem] font-medium">
               {brief.previewLabel}
             </p>
-            <div className="mt-4 border border-line bg-paper-2 p-6 md:p-8" aria-live="polite">
+            <div className="mt-4 border border-line bg-paper p-6 md:p-8" aria-live="polite">
               <p className="font-display text-xl font-normal leading-snug">{brief.greeting}</p>
               <dl className="mt-6 space-y-3 text-[0.98rem]">
                 {lines.map((l) => (
