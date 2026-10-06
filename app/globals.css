@@ -15,7 +15,6 @@
   --accent: #7f6239;
   --accent-strong: #1f1c18;
   --on-accent: #f6f2eb;
-  --tshadow: 0 0 2px rgba(246, 242, 235, 0.7), 0 0 24px rgba(246, 242, 235, 0.65);
   color-scheme: light;
 }
 
@@ -107,52 +106,54 @@ body::after {
   }
 }
 
-/* ---------- Hero: one screen, ribbon clip beside the headline ---------- */
+/* ---------- Split sections: hero and final CTA ---------- */
 
 /*
-  Phones: the clip on top (full bleed, under the transparent nav), copy below.
-  From 768px: a split, copy on the left aligned to the page container, the clip
-  filling the right side edge to edge. The clip column is capped at 0.86 of the
-  screen height, so ultra-wide screens don't crop the ribbon off its frame.
+  Phones: the picture on top (full bleed), copy below.
+  From 768px: copy on the left aligned to the page container, the picture
+  filling the right side edge to edge. The picture column is capped relative to
+  the section height, so ultra-wide screens don't crop the ribbon off its frame.
 */
-.hero {
-  --ribbon-bg: #b99a95; /* first frame's backdrop, shown until the poster paints */
+.split {
+  --split-h: 100svh;
+  --media-ratio: 4 / 5;
   position: relative;
   background: var(--paper);
   color: var(--ink);
 }
-.hero-media {
+.split-media {
   position: relative;
-  aspect-ratio: 4 / 5;
+  aspect-ratio: var(--media-ratio);
   max-height: 64svh;
   width: 100%;
   overflow: hidden;
-  background: var(--ribbon-bg);
+  background: var(--paper-2);
 }
-.hero-media video {
+.split-media > video,
+.split-media > img {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
-.hero-copy {
+.split-copy {
   padding: 2.5rem 1.25rem 4rem;
 }
 @media (min-width: 768px) {
-  .hero {
+  .split {
     display: grid;
-    grid-template-columns: 1fr min(48vw, 86svh);
-    min-height: 100svh;
+    grid-template-columns: 1fr min(48vw, calc(var(--split-h) * 0.86));
+    min-height: var(--split-h);
   }
-  .hero-media {
+  .split-media {
     grid-column: 2;
     grid-row: 1;
     aspect-ratio: auto;
     max-height: none;
     height: 100%;
   }
-  .hero-copy {
+  .split-copy {
     grid-column: 1;
     grid-row: 1;
     align-self: center;
@@ -161,10 +162,19 @@ body::after {
   }
 }
 @media (min-width: 1024px) {
-  .hero-copy {
+  .split-copy {
     padding-left: max(3.5rem, calc((100vw - 1400px) / 2 + 3.5rem));
     padding-right: 4rem;
   }
+}
+/* The hero clip opens on a dusty-rose backdrop; match it until the poster paints. */
+.hero .split-media {
+  background: #b99a95;
+}
+/* The closing picture is a wide strip on phones, so the page doesn't end on a second hero. */
+.cta-split {
+  --split-h: 80svh;
+  --media-ratio: 4 / 3;
 }
 
 /* Copy settles in once on load. */
@@ -275,29 +285,8 @@ body::after {
   transform: rotateY(180deg);
 }
 
-/* ---------- Service tags ---------- */
+/* ---------- Disclosures (services, FAQ) ---------- */
 
-.tag-hole {
-  position: absolute;
-  top: 1.25rem;
-  right: 1.25rem;
-  width: 0.9rem;
-  height: 0.9rem;
-  border-radius: 9999px;
-  background: var(--paper);
-  box-shadow: inset 0 0 0 1.5px var(--line);
-}
-.tag-hole::after {
-  content: "";
-  position: absolute;
-  left: 50%;
-  bottom: 100%;
-  width: 1px;
-  height: 2.2rem;
-  background: var(--accent);
-  transform: rotate(-18deg);
-  transform-origin: bottom center;
-}
 details > summary {
   list-style: none;
   cursor: pointer;

@@ -51,7 +51,7 @@ export type Dict = {
     title: string;
     intro: string;
     more: string;
-    items: { tag: string; title: string; short: string; details: string[]; photo?: PhotoKey }[];
+    items: { title: string; short: string; details: string[] }[];
   };
   process: {
     title: string;

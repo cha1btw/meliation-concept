@@ -28,12 +28,12 @@ export function HeroRibbon({ hero }: { hero: Dict["hero"] }) {
   }, []);
 
   return (
-    <section id="top" className="hero" aria-labelledby="hero-title">
-      <div className="hero-media" aria-hidden="true">
+    <section id="top" className="split hero" aria-labelledby="hero-title">
+      <div className="split-media" aria-hidden="true">
         <video ref={videoRef} src={VIDEO} poster={POSTER_START} muted playsInline preload="auto" disablePictureInPicture />
       </div>
 
-      <div className="hero-copy">
+      <div className="split-copy">
         <h1
           id="hero-title"
           className="hero-in max-w-[13ch] font-display text-[clamp(2.5rem,5.4vw,5.4rem)] font-light leading-[1.02] tracking-[-0.015em] text-balance"

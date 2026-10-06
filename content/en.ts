@@ -98,10 +98,8 @@ export const en: Dict = {
     more: "What’s included",
     items: [
       {
-        tag: "Fabrics",
         title: "Fabric sourcing",
         short: "I find the fabric you need or offer alternatives.",
-        photo: "goldSequin2",
         details: [
           "Sourcing and purchasing across Türkiye",
           "Matched to your collection and specs",
@@ -112,7 +110,6 @@ export const en: Dict = {
         ],
       },
       {
-        tag: "Prints",
         title: "Print development",
         short: "From an idea to printing on the chosen fabric.",
         details: [
@@ -123,7 +120,6 @@ export const en: Dict = {
         ],
       },
       {
-        tag: "Production",
         title: "Factory sourcing",
         short: "I find the factory that fits your request.",
         details: [
@@ -134,10 +130,8 @@ export const en: Dict = {
         ],
       },
       {
-        tag: "Collections",
         title: "Collection development",
         short: "From the first sample to the finished run.",
-        photo: "tulleLeaves2",
         details: [
           "Sample from a reference or sketch",
           "Pattern making and first sample",
@@ -148,7 +142,6 @@ export const en: Dict = {
         ],
       },
       {
-        tag: "Details",
         title: "Branding and packaging",
         short: "Tags, labels, packaging and branding.",
         details: [
@@ -159,7 +152,6 @@ export const en: Dict = {
         ],
       },
       {
-        tag: "Support",
         title: "Production support",
         short: "Communication, control and problem solving on site.",
         details: [

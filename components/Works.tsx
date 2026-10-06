@@ -1,3 +1,4 @@
+import { HandTap } from "@phosphor-icons/react/dist/ssr";
 import type { Dict } from "@/content/types";
 import { SwatchCard } from "./SwatchCard";
 
@@ -12,6 +13,11 @@ export function Works({ works }: { works: Dict["works"] }) {
           {works.title}
         </h2>
         <p className="reveal mt-6 max-w-[58ch] text-[1.075rem] leading-relaxed text-muted text-pretty">{works.intro}</p>
+        {/* Visible hint: without it nobody knows the cards have a back side. */}
+        <p className="reveal mt-6 inline-flex items-center gap-2 text-sm text-accent" aria-hidden="true">
+          <HandTap size={18} />
+          {works.flipHint}
+        </p>
       </div>
 
       {/* Native horizontal scroll with snap: works with wheel, trackpad, touch and keyboard. */}

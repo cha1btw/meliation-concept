@@ -6,7 +6,8 @@ A redesign concept for [Meliation](https://instagram.com/meliation), a fabric so
 
 - **Ribbon hero.** One screen: headline on the left, a 6-second ribbon clip on the right (on top on phones). The clip (H.264 MP4, 0.66 MB) plays once on load and rests on its cream last frame; if the browser blocks autoplay, the poster switches to that resting frame.
 - **Scroll-driven reveals** for text and photos (pure CSS scroll-driven animation, no JavaScript).
-- **Flip cards** for the work gallery, **hang-tag service cards** with native `<details>`, a **stitched process timeline**.
+- **Flip cards** for the work gallery, a **numbered service list** with native `<details>`, a **stitched process timeline**.
+- **Closing section** repeats the hero split with the clip's resting frame, so the page ends where it opened.
 - **Brief builder.** Four choices and an optional note turn into a ready WhatsApp message with a live preview.
 - Ukrainian (`/`) and English (`/en`). One light "Milk & Ink" theme in Raleway; the whole palette lives in the `:root` block of `app/globals.css`.
 - Full-screen menu on phones.
@@ -48,6 +49,6 @@ F="crop=764:1008:48:0,unsharp=5:5:0.4"
 ffmpeg -i source.mov -an -vf "$F,format=yuv420p" -c:v libx264 -preset veryslow -crf 20 -profile:v high -movflags +faststart public/assets/hero/ribbon.mp4
 ffmpeg -i source.mov -vf "$F" -frames:v 1 -q:v 3 public/assets/hero/ribbon-start.jpg
 ffmpeg -sseof -0.05 -i source.mov -vf "$F" -update 1 -frames:v 1 -q:v 3 public/assets/hero/ribbon-end.jpg
+# link preview image (1200x630)
+ffmpeg -i public/assets/hero/ribbon-end.jpg -vf "crop=764:401:0:282,scale=1200:630:flags=lanczos" -q:v 3 public/assets/og.jpg
 ```
-
-Final CTA backdrop (`hero-ending.jpg`): [Pexels video 7677156](https://www.pexels.com/video/a-red-silk-fabric-7677156/) (Pexels license).

@@ -34,7 +34,7 @@ export function buildMetadata(dict: Dict, path: "/" | "/en"): Metadata {
       siteName: "Meliation",
       locale: dict.lang === "uk" ? "uk_UA" : "en_US",
       type: "website",
-      images: [{ url: "/assets/hero-ending.jpg", width: 1920, height: 1080 }],
+      images: [{ url: "/assets/og.jpg", width: 1200, height: 630 }],
     },
   };
 }
