@@ -2,7 +2,7 @@
 
 /*
   Milk & Ink: one light theme on purpose. Milky background that matches the
-  cream silk in the hero, warm near-black type, ink buttons, and a quiet
+  cream ribbon in the hero, warm near-black type, ink buttons, and a quiet
   bronze-champagne accent for small details (5:1 contrast on the milk).
   Change the whole palette here.
 */
@@ -15,7 +15,6 @@
   --accent: #7f6239;
   --accent-strong: #1f1c18;
   --on-accent: #f6f2eb;
-  --scrim: 246, 242, 235;
   --tshadow: 0 0 2px rgba(246, 242, 235, 0.7), 0 0 24px rgba(246, 242, 235, 0.65);
   color-scheme: light;
 }
@@ -108,107 +107,75 @@ body::after {
   }
 }
 
-/* ---------- Scroll-video hero (runs on every device) ---------- */
+/* ---------- Hero: one screen, ribbon clip beside the headline ---------- */
 
+/*
+  Phones: the clip on top (full bleed, under the transparent nav), copy below.
+  From 768px: a split, copy on the left aligned to the page container, the clip
+  filling the right side edge to edge. The clip column is capped at 0.86 of the
+  screen height, so ultra-wide screens don't crop the ribbon off its frame.
+*/
 .hero {
+  --ribbon-bg: #b99a95; /* first frame's backdrop, shown until the poster paints */
   position: relative;
-  height: 600vh;
   background: var(--paper);
   color: var(--ink);
 }
-.hero-stage {
-  position: sticky;
-  top: 0;
-  height: 100vh;
-  height: 100svh;
+.hero-media {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  max-height: 64svh;
+  width: 100%;
   overflow: hidden;
+  background: var(--ribbon-bg);
 }
-/* First frame as a CSS background: instant paint, and the no-JS fallback. */
-.hero-poster,
-.hero-canvas {
+.hero-media video {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
+  object-fit: cover;
 }
-.hero-poster {
-  background: var(--paper) url("/assets/silk/d/000.webp") center / cover no-repeat;
+.hero-copy {
+  padding: 2.5rem 1.25rem 4rem;
 }
-@media (orientation: portrait) {
-  .hero-poster {
-    background-image: url("/assets/silk/m/000.webp");
+@media (min-width: 768px) {
+  .hero {
+    display: grid;
+    grid-template-columns: 1fr min(48vw, 86svh);
+    min-height: 100svh;
+  }
+  .hero-media {
+    grid-column: 2;
+    grid-row: 1;
+    aspect-ratio: auto;
+    max-height: none;
+    height: 100%;
+  }
+  .hero-copy {
+    grid-column: 1;
+    grid-row: 1;
+    align-self: center;
+    /* Left edge follows the 1400px container used by every other section. */
+    padding: 7rem 3rem 5rem max(2.5rem, calc((100vw - 1400px) / 2 + 2.5rem));
   }
 }
-.hero-canvas {
-  opacity: 0;
-  transition: opacity 0.5s ease;
-}
-.hero-stage.canvas-ready .hero-canvas {
-  opacity: 1;
-}
-/* A milky veil keeps dark type readable over the lightest folds of the silk. */
-.hero-scrim {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background:
-    linear-gradient(180deg, rgba(var(--scrim), 0.55) 0%, rgba(var(--scrim), 0) 20%),
-    linear-gradient(0deg, rgba(var(--scrim), 0.7) 0%, rgba(var(--scrim), 0) 42%);
+@media (min-width: 1024px) {
+  .hero-copy {
+    padding-left: max(3.5rem, calc((100vw - 1400px) / 2 + 3.5rem));
+    padding-right: 4rem;
+  }
 }
 
-.band {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: flex-end;
-  pointer-events: none;
-  opacity: 0;
-  text-shadow: var(--tshadow);
+/* Copy settles in once on load. */
+.hero-in {
+  animation: hero-in 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) both;
 }
-.band::before {
-  content: "";
-  position: absolute;
-  inset: -4%;
-  pointer-events: none;
-  opacity: calc(0.25 + 0.75 * var(--k, 1));
-  background: radial-gradient(ellipse 70% 62% at 22% 72%, rgba(var(--scrim), 0.55) 0%, rgba(var(--scrim), 0.3) 46%, rgba(var(--scrim), 0) 76%);
-}
-.band-inner {
-  position: relative;
-  width: 100%;
-}
-.band .btn {
-  text-shadow: none;
-  pointer-events: auto;
-}
-.band.is-live {
-  pointer-events: auto;
-}
-/* A keyboard user tabbing into the hero CTA must see it, even before scrolling there. */
-.band-settle:focus-within {
-  opacity: 1 !important;
-  --k: 1 !important;
-}
-
-/* Characters rise in reading order like a ripple running through silk. */
-.band .c {
-  display: inline-block;
-  --kc: clamp(0, (var(--k, 0) - var(--th, 0)) * 2.6, 1);
-  opacity: var(--kc);
-  transform: translateY(calc((1 - var(--kc)) * 0.55em));
-}
-.band .fade-k {
-  opacity: clamp(0, (var(--k, 0) - 0.35) * 2.2, 1);
-  transform: translateY(calc((1 - clamp(0, (var(--k, 0) - 0.35) * 2.2, 1)) * 14px));
-}
-
-.sr-only-hero {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
-  clip-path: inset(50%);
-  white-space: nowrap;
+@keyframes hero-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
 }
 
 /* ---------- Scroll-driven reveals (pure CSS, no JavaScript) ---------- */

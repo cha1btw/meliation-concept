@@ -1,6 +1,6 @@
 import type { Dict } from "@/content/types";
 import { Nav } from "./Nav";
-import { ScrollSilkHero } from "./ScrollSilkHero";
+import { HeroRibbon } from "./HeroRibbon";
 import { About } from "./About";
 import { Works } from "./Works";
 import { Services } from "./Services";
@@ -15,7 +15,7 @@ export function Landing({ dict }: { dict: Dict }) {
     <>
       <Nav nav={dict.nav} />
       <main>
-        <ScrollSilkHero hero={dict.hero} />
+        <HeroRibbon hero={dict.hero} />
         <div className="relative">
           <About about={dict.about} />
           <Works works={dict.works} />

@@ -22,25 +22,9 @@ export const en: Dict = {
     menuClose: "Close menu",
   },
   hero: {
-    bands: [
-      {
-        title: "Fabrics",
-        text: "I find the fabric you need anywhere in Türkiye, or offer a worthy alternative.",
-      },
-      {
-        title: "Factories",
-        text: "I match the factory to your product, volume and budget.",
-      },
-      {
-        title: "Collection",
-        text: "From the first sample to the finished run, with control on site.",
-      },
-    ],
-    settle: {
-      title: "From fabric to finished collection",
-      sub: "Fabric sourcing, production and support for fashion brands in Türkiye. I am on site, in Istanbul.",
-      cta: "Discuss a project",
-    },
+    title: "From fabric to finished collection",
+    sub: "Fabric sourcing, production and support for fashion brands in Türkiye. I am on site, in Istanbul.",
+    cta: "Discuss a project",
   },
   about: {
     title: "I’m Melissa. Your person in Istanbul.",

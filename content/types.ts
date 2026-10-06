@@ -27,10 +27,7 @@ export type Dict = {
     menuOpen: string;
     menuClose: string;
   };
-  hero: {
-    bands: { title: string; text: string }[];
-    settle: { title: string; sub: string; cta: string };
-  };
+  hero: { title: string; sub: string; cta: string };
   about: {
     title: string;
     paragraphs: string[];
