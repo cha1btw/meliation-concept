@@ -26,7 +26,7 @@
   --color-control: var(--control);
   --color-on-ink: var(--on-ink);
   --font-sans: var(--font-jost), system-ui, sans-serif;
-  --font-serif: var(--font-playfair), Georgia, serif;
+  --font-serif: var(--font-didone), Georgia, serif;
 }
 
 html {

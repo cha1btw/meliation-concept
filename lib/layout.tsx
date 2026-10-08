@@ -1,10 +1,11 @@
 import type { Metadata, Viewport } from "next";
-import { Jost, Playfair_Display } from "next/font/google";
+import { Jost, Noto_Serif_Display } from "next/font/google";
 import type { Dict } from "@/content/types";
 
-// Editorial pairing: a high-contrast serif for headlines and the monogram, a geometric sans for UI and body.
-const serif = Playfair_Display({
-  variable: "--font-playfair",
+// Editorial pairing: a Didone serif (razor-thin hairlines, heavy stems, like the PORTER masthead letter)
+// for headlines and the monogram, a geometric sans for UI and body. Both cover Ukrainian.
+const serif = Noto_Serif_Display({
+  variable: "--font-didone",
   subsets: ["latin", "cyrillic"],
   weight: ["400", "500"],
   style: ["normal", "italic"],
