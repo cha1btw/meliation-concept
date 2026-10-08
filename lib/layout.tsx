@@ -1,12 +1,20 @@
 import type { Metadata, Viewport } from "next";
-import { Raleway } from "next/font/google";
+import { Jost, Playfair_Display } from "next/font/google";
 import type { Dict } from "@/content/types";
 
-// One family for the whole site; the serif lives only in the logo.
-const raleway = Raleway({
-  variable: "--font-raleway",
+// Editorial pairing: a high-contrast serif for headlines and the monogram, a geometric sans for UI and body.
+const serif = Playfair_Display({
+  variable: "--font-playfair",
   subsets: ["latin", "cyrillic"],
-  weight: ["300", "400", "500", "600"],
+  weight: ["400", "500"],
+  style: ["normal", "italic"],
+  display: "swap",
+});
+
+const sans = Jost({
+  variable: "--font-jost",
+  subsets: ["latin", "cyrillic"],
+  weight: ["300", "400", "500"],
   display: "swap",
 });
 
@@ -15,7 +23,7 @@ const siteUrl = process.env.VERCEL_PROJECT_PRODUCTION_URL
   : "http://localhost:3000";
 
 export const viewport: Viewport = {
-  themeColor: "#f7f3ee",
+  themeColor: "#ffffff",
   colorScheme: "light",
 };
 
@@ -41,7 +49,7 @@ export function buildMetadata(dict: Dict, path: "/" | "/en"): Metadata {
 
 export function RootShell({ lang, children }: { lang: Dict["lang"]; children: React.ReactNode }) {
   return (
-    <html lang={lang} className={`${raleway.variable} antialiased`}>
+    <html lang={lang} className={`${serif.variable} ${sans.variable} antialiased`}>
       <body>{children}</body>
     </html>
   );

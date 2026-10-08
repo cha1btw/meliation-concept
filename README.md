@@ -4,18 +4,19 @@ A redesign concept for [Meliation](https://instagram.com/meliation), a fabric so
 
 ## What's inside
 
-- **Ribbon hero.** One screen: headline on the left, a 6-second ribbon clip on the right (on top on phones). The clip (H.264 MP4, 0.66 MB) plays once on load and rests on its cream last frame; if the browser blocks autoplay, the poster switches to that resting frame.
-- **Scroll-driven reveals** for text and photos (pure CSS scroll-driven animation, no JavaScript).
-- **Flip cards** for the work gallery, a **numbered service list** with native `<details>`, a **stitched process timeline**.
-- **Closing section** repeats the hero split with the clip's resting frame, so the page ends where it opened.
+- **Editorial Ink design** in the spirit of NET-A-PORTER / PORTER magazine: white page, black type, 1px hairlines, Playfair Display for headlines and Jost for UI. The palette lives in the `:root` block of `app/globals.css`.
+- **M monogram.** A large serif M with the wordmark running down beside it sits over the top edge of the hero clip and the closing photo, like PORTER's P (`components/ui/Monogram.tsx`, `.monogram` in CSS).
+- **Masthead** with section links and the centred wordmark; a slim bar slides in once it scrolls away. Full-screen menu on phones.
+- **Sections:** hero (clip of Melissa in the showroom), founder's letter (portrait, pull quote, two text columns with a drop cap), industry challenges (black hairline grid), the Istanbul advantage (media and text swap sides), lab services (native `<details>`), the method with a photo strip, client reviews slider, brief builder, FAQ, closing spread.
 - **Brief builder.** Four choices and an optional note turn into a ready WhatsApp message with a live preview.
-- Ukrainian (`/`) and English (`/en`). One light "Rose & Plum" theme in Raleway: every colour comes from the hero clip (cream, dusty rose, plum ink). The whole palette lives in the `:root` block of `app/globals.css`.
-- Full-screen menu on phones; on desktop the menu underlines the section you are in.
-- Motion is CSS only and every animation rests in its final state under `prefers-reduced-motion` (the hero clip then shows its last frame instead of playing).
+- **Reviews.** The partner-logo row stays hidden while `journal.brands` is empty; add brand names there to show it.
+- Videos play only while on screen; clips below the fold load nothing until they scroll into view.
+- Ukrainian (`/`) and English (`/en`).
+- Motion is CSS only (plus the clips). By the owner's choice it also runs for visitors with reduced motion enabled; everything is short, plays once and only moves on load or scroll.
 
 ## Stack
 
-Next.js 16 (App Router, static prerender), React 19, TypeScript, Tailwind CSS 4, Raleway, Phosphor icons. No animation libraries.
+Next.js 16 (App Router, static prerender), React 19, TypeScript, Tailwind CSS 4, Playfair Display + Jost, Phosphor icons. No animation libraries.
 
 ## Run locally
 
@@ -33,25 +34,20 @@ app/(uk)/            Ukrainian root layout and page (lang="uk")
 app/(en)/en/         English root layout and page (lang="en")
 components/          Page sections; client components only where interaction needs them
 content/uk.ts, en.ts All copy, typed by content/types.ts
-lib/site.ts          Contacts, photo map, WhatsApp link helper
-public/assets/       Hero clip and posters (hero/), logo, photos
+lib/site.ts          Contacts, photo and video maps, WhatsApp link helper
+public/assets/       editorial/ photos (WebP), video/ clips and posters, logo
 ```
 
 ## Editing content
 
 All text lives in `content/uk.ts` and `content/en.ts`. Contacts are in `lib/site.ts`.
 
-## Regenerating the hero clip
+## Regenerating media
 
-The source clip has a UI slider and black corners baked into its side edges; the crop removes them. Audio is dropped.
+Photos are WebP at quality 80; clips are vertical 720x1280 H.264 without audio.
 
 ```bash
-F="crop=764:1008:48:0,unsharp=5:5:0.4"
-ffmpeg -i source.mov -an -vf "$F,format=yuv420p" -c:v libx264 -preset veryslow -crf 20 -profile:v high -movflags +faststart public/assets/hero/ribbon.mp4
-ffmpeg -i source.mov -vf "$F" -frames:v 1 -q:v 3 public/assets/hero/ribbon-start.jpg
-ffmpeg -sseof -0.05 -i source.mov -vf "$F" -update 1 -frames:v 1 -q:v 3 public/assets/hero/ribbon-end.jpg
-# closing-section image: wider crop, so no edge artefacts show on the rose background
-ffmpeg -i source.mov -vf "crop=716:1008:72:0,unsharp=5:5:0.4" -frames:v 1 -q:v 3 public/assets/hero/ribbon-cta.jpg
-# link preview image (1200x630)
-ffmpeg -i public/assets/hero/ribbon-end.jpg -vf "crop=764:401:0:282,scale=1200:630:flags=lanczos" -q:v 3 public/assets/og.jpg
+cwebp -q 80 -mt source.jpg -o public/assets/editorial/name.webp
+ffmpeg -i source.mov -an -vf "scale=720:1280:flags=lanczos,fps=30,format=yuv420p" -c:v libx264 -preset slow -crf 25 -profile:v high -movflags +faststart public/assets/video/name.mp4
+ffmpeg -i source.mov -vf "scale=720:1280:flags=lanczos" -frames:v 1 -q:v 4 public/assets/video/name.jpg
 ```

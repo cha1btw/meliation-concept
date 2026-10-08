@@ -1,10 +1,12 @@
 import type { Dict } from "@/content/types";
 import { Nav } from "./Nav";
-import { HeroRibbon } from "./HeroRibbon";
-import { About } from "./About";
-import { Works } from "./Works";
+import { Hero } from "./Hero";
+import { FounderLetter } from "./FounderLetter";
+import { Challenges } from "./Challenges";
+import { Istanbul } from "./Istanbul";
 import { Services } from "./Services";
 import { Process } from "./Process";
+import { Journal } from "./Journal";
 import { BriefBuilder } from "./BriefBuilder";
 import { Faq } from "./Faq";
 import { FinalCta } from "./FinalCta";
@@ -15,18 +17,18 @@ export function Landing({ dict }: { dict: Dict }) {
     <>
       <Nav nav={dict.nav} />
       <main>
-        <HeroRibbon hero={dict.hero} />
-        <div className="relative">
-          <About about={dict.about} />
-          <Works works={dict.works} />
-          <Services services={dict.services} />
-          <Process process={dict.process} />
-          <BriefBuilder brief={dict.brief} />
-          <Faq faq={dict.faq} />
-        </div>
-        <FinalCta cta={dict.cta} />
+        <Hero hero={dict.hero} tagline={dict.nav.tagline} />
+        <FounderLetter founder={dict.founder} />
+        <Challenges challenges={dict.challenges} />
+        <Istanbul istanbul={dict.istanbul} />
+        <Services services={dict.services} />
+        <Process process={dict.process} />
+        <Journal journal={dict.journal} />
+        <BriefBuilder brief={dict.brief} />
+        <Faq faq={dict.faq} />
+        <FinalCta cta={dict.cta} tagline={dict.nav.tagline} />
       </main>
-      <Footer footer={dict.footer} />
+      <Footer footer={dict.footer} nav={dict.nav} />
     </>
   );
 }

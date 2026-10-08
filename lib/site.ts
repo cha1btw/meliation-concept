@@ -1,14 +1,18 @@
 import type { StaticImageData } from "next/image";
-import type { PhotoKey } from "@/content/types";
+import type { PhotoKey, VideoKey } from "@/content/types";
 
-import goldSequin1 from "@/public/assets/photos/gold-sequin-1.webp";
-import goldSequin2 from "@/public/assets/photos/gold-sequin-2.webp";
-import showroomChair from "@/public/assets/photos/showroom-chair.webp";
-import showroomLaugh from "@/public/assets/photos/showroom-laugh.webp";
-import tulleLeaves1 from "@/public/assets/photos/tulle-leaves-1.webp";
-import tulleLeaves2 from "@/public/assets/photos/tulle-leaves-2.webp";
-import portraitLace from "@/public/assets/photos/portrait-lace.webp";
-import laceBundle from "@/public/assets/photos/lace-bundle.webp";
+import melissaPortrait from "@/public/assets/editorial/melissa-portrait.webp";
+import fabricHands from "@/public/assets/editorial/fabric-hands.webp";
+import draping from "@/public/assets/editorial/draping.webp";
+import machineFoot from "@/public/assets/editorial/machine-foot.webp";
+import needle from "@/public/assets/editorial/needle.webp";
+import patternWall from "@/public/assets/editorial/pattern-wall.webp";
+import measuring from "@/public/assets/editorial/measuring.webp";
+import threadCones from "@/public/assets/editorial/thread-cones.webp";
+import silkHands from "@/public/assets/editorial/silk-hands.webp";
+import jacquardRolls from "@/public/assets/editorial/jacquard-rolls.webp";
+import labDips from "@/public/assets/editorial/lab-dips.webp";
+import rollsLight from "@/public/assets/editorial/rolls-light.webp";
 
 export const contacts = {
   phone: "+380639597795",
@@ -22,14 +26,24 @@ export const contacts = {
 };
 
 export const photos: Record<PhotoKey, StaticImageData> = {
-  goldSequin1,
-  goldSequin2,
-  showroomChair,
-  showroomLaugh,
-  tulleLeaves1,
-  tulleLeaves2,
-  portraitLace,
-  laceBundle,
+  melissaPortrait,
+  fabricHands,
+  draping,
+  machineFoot,
+  needle,
+  patternWall,
+  measuring,
+  threadCones,
+  silkHands,
+  jacquardRolls,
+  labDips,
+  rollsLight,
+};
+
+// Vertical 720x1280 H.264 clips without audio; the poster is the first frame.
+export const videos: Record<VideoKey, { src: string; poster: string }> = {
+  melissaShowroom: { src: "/assets/video/melissa-showroom.mp4", poster: "/assets/video/melissa-showroom.jpg" },
+  tulleHands: { src: "/assets/video/tulle-hands.mp4", poster: "/assets/video/tulle-hands.jpg" },
 };
 
 export function whatsappLink(text: string) {

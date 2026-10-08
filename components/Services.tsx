@@ -1,50 +1,59 @@
+import Image from "next/image";
 import { Plus } from "@phosphor-icons/react/dist/ssr";
 import type { Dict } from "@/content/types";
+import { photos } from "@/lib/site";
+import { Kicker } from "./ui/Kicker";
 
 /*
-  A numbered list: each row shows the service and one line about it, and opens
-  (native <details>) to the full scope. Desktop columns: number, title, line, toggle.
+  Title and a photo on the left, a numbered list on the right. Each row opens
+  (native <details>) to the full scope of the service.
 */
 export function Services({ services }: { services: Dict["services"] }) {
   return (
-    <section id="services" className="sect scroll-mt-20" aria-labelledby="services-title">
-      <div className="mx-auto w-full max-w-[1400px] px-5 md:px-10 lg:px-14">
-        <h2
-          id="services-title"
-          className="reveal t-display"
-        >
-          {services.title}
-        </h2>
-        <p className="reveal t-lead mt-6">{services.intro}</p>
+    <section id="services" className="sect bg-bone" aria-labelledby="services-title">
+      <div className="wrap grid gap-12 lg:grid-cols-12 lg:gap-x-10">
+        <div className="lg:col-span-5">
+          <Kicker className="reveal">{services.kicker}</Kicker>
+          <h2 id="services-title" className="reveal t-display mt-7 max-w-[14ch]">
+            {services.title}
+          </h2>
+          <p className="reveal t-lead mt-6">{services.intro}</p>
+          <div className="reveal-img relative mt-10 aspect-[4/3] overflow-hidden bg-paper lg:mt-14 lg:aspect-[4/5]">
+            <Image
+              src={photos.fabricHands}
+              alt={services.photoAlt}
+              fill
+              placeholder="blur"
+              sizes="(min-width: 1024px) 38vw, 100vw"
+              className="object-cover"
+            />
+          </div>
+        </div>
 
-        <div className="mt-14 border-t border-line md:mt-16">
+        <div className="border-t border-ink lg:col-span-7 lg:self-start">
           {services.items.map((s, i) => (
             <details key={s.title} className="reveal group border-b border-line" style={{ "--i": i } as React.CSSProperties}>
-              <summary className="grid grid-cols-[2.25rem_1fr_auto] gap-x-3 py-8 md:py-11 lg:grid-cols-12 lg:gap-x-10">
-                <span className="col-start-1 row-start-1 pt-[0.45em] text-sm tabular-nums text-accent lg:col-span-1">
+              <summary className="grid grid-cols-[2.5rem_1fr_auto] gap-x-3 py-7 md:py-9">
+                <span className="kicker col-start-1 row-start-1 pt-[0.55em] tabular-nums text-muted">
                   {String(i + 1).padStart(2, "0")}
                 </span>
-                <h3 className="col-start-2 row-start-1 font-display text-[1.45rem] font-light leading-[1.2] transition-[color,transform] duration-500 ease-[cubic-bezier(0.2,0.7,0.2,1)] group-hover:translate-x-2 group-hover:text-accent md:text-[1.8rem] lg:col-span-5">
+                <h3 className="col-start-2 row-start-1 font-serif text-[1.45rem] font-normal leading-[1.2] transition-transform duration-500 ease-[cubic-bezier(0.2,0.7,0.2,1)] group-hover:translate-x-1.5 md:text-[1.75rem]">
                   {s.title}
                 </h3>
-                <p className="col-start-2 row-start-2 mt-2 max-w-[40ch] text-muted lg:col-span-4 lg:col-start-7 lg:row-start-1 lg:mt-0 lg:pt-[0.4em]">
-                  {s.short}
-                </p>
-                <span className="col-start-3 row-start-1 inline-flex items-start gap-2 pt-[0.35em] text-[0.95rem] font-medium lg:col-span-2 lg:col-start-11 lg:justify-self-end">
-                  <span className="sr-only lg:not-sr-only">{services.more}</span>
-                  <Plus size={20} className="rotate-open mt-px shrink-0 text-accent transition-transform duration-300" aria-hidden="true" />
+                <span className="col-start-2 row-start-2 mt-2 block max-w-[44ch] font-light text-muted">{s.short}</span>
+                <span className="col-start-3 row-start-1 inline-flex items-start gap-2 pt-[0.5em]">
+                  <span className="kicker sr-only md:not-sr-only">{services.more}</span>
+                  <Plus size={18} className="rotate-open shrink-0 transition-transform duration-300" aria-hidden="true" />
                 </span>
               </summary>
-              <div className="pb-9 pl-[calc(2.25rem+0.75rem)] lg:grid lg:grid-cols-12 lg:gap-x-10 lg:pl-0">
-                <ul className="grid gap-x-10 gap-y-3 text-[0.98rem] leading-snug sm:grid-cols-2 lg:col-span-10 lg:col-start-2">
-                  {s.details.map((d) => (
-                    <li key={d} className="flex gap-3">
-                      <span className="mt-[0.6em] h-px w-3 shrink-0 bg-accent" aria-hidden="true" />
-                      {d}
-                    </li>
-                  ))}
-                </ul>
-              </div>
+              <ul className="grid gap-x-10 gap-y-3 pb-9 pl-[calc(2.5rem+0.75rem)] text-[0.98rem] font-light leading-snug sm:grid-cols-2">
+                {s.details.map((d) => (
+                  <li key={d} className="flex gap-3">
+                    <span className="mt-[0.65em] h-px w-3 shrink-0 bg-ink" aria-hidden="true" />
+                    {d}
+                  </li>
+                ))}
+              </ul>
             </details>
           ))}
         </div>

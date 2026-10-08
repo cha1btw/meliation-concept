@@ -3,44 +3,36 @@
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { List, X } from "@phosphor-icons/react/dist/ssr";
+import { ArrowRight, List, X } from "@phosphor-icons/react/dist/ssr";
 import type { Dict } from "@/content/types";
 import logo from "@/public/assets/logo.png";
 
-const NAV_HEIGHT = 68;
-
+/*
+  Desktop: a magazine masthead in the page flow (section links between hairlines,
+  then the centred wordmark), and a slim bar that slides in once the masthead
+  has scrolled away. Phones: one sticky row (menu, wordmark, language) and a
+  full-screen menu.
+*/
 export function Nav({ nav }: { nav: Dict["nav"] }) {
-  const ref = useRef<HTMLElement>(null);
+  const mastRef = useRef<HTMLDivElement>(null);
+  const [compact, setCompact] = useState(false);
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState<string | null>(null);
 
-  // Header is transparent while the hero is under it, solid afterwards.
+  // The slim bar shows while the desktop masthead is out of view.
   useEffect(() => {
-    const header = ref.current;
-    const hero = document.getElementById("top");
-    if (!header || !hero) return;
-    let io: IntersectionObserver | null = null;
-    const observe = () => {
-      io?.disconnect();
-      io = new IntersectionObserver(
-        ([entry]) => header.setAttribute("data-over", entry.isIntersecting ? "true" : "false"),
-        { rootMargin: `0px 0px -${Math.max(0, window.innerHeight - NAV_HEIGHT)}px 0px` },
-      );
-      io.observe(hero);
-    };
-    observe();
-    window.addEventListener("resize", observe);
-    return () => {
-      io?.disconnect();
-      window.removeEventListener("resize", observe);
-    };
+    const mast = mastRef.current;
+    if (!mast) return;
+    const io = new IntersectionObserver(([entry]) => setCompact(!entry.isIntersecting));
+    io.observe(mast);
+    return () => io.disconnect();
   }, []);
 
-  // Marks the menu link of the section that is crossing the middle of the screen.
-  // State changes only when the section changes, not on every scroll frame.
+  // Marks the link of the section crossing the middle of the screen.
   useEffect(() => {
-    const ids = ["about", "services", "process", "faq"];
-    const els = ids.map((id) => document.getElementById(id)).filter((el): el is HTMLElement => !!el);
+    const els = nav.links
+      .map((l) => document.getElementById(l.href.slice(1)))
+      .filter((el): el is HTMLElement => !!el);
     const io = new IntersectionObserver(
       (entries) => {
         for (const e of entries) {
@@ -52,7 +44,7 @@ export function Nav({ nav }: { nav: Dict["nav"] }) {
     );
     els.forEach((el) => io.observe(el));
     return () => io.disconnect();
-  }, []);
+  }, [nav.links]);
 
   // Mobile menu: lock page scroll and close on Escape while open.
   useEffect(() => {
@@ -67,75 +59,105 @@ export function Nav({ nav }: { nav: Dict["nav"] }) {
     };
   }, [open]);
 
-  const links = [
-    { href: "#about", label: nav.about },
-    { href: "#services", label: nav.services },
-    { href: "#process", label: nav.process },
-    { href: "#faq", label: nav.faq },
-  ];
   const close = () => setOpen(false);
+
+  const sectionLinks = (
+    <ul className="flex items-center">
+      {nav.links.map((l, i) => (
+        <li key={l.href} className="flex items-center">
+          {i > 0 ? <span aria-hidden="true" className="mx-3 h-3 w-px bg-line xl:mx-6" /> : null}
+          <a href={l.href} className="kicker u-link whitespace-nowrap lg:tracking-[0.14em] xl:tracking-[0.24em]" aria-current={active === l.href.slice(1) ? "true" : undefined}>
+            {l.label}
+          </a>
+        </li>
+      ))}
+    </ul>
+  );
+
+  const langLink = (
+    <Link
+      href={nav.langHref}
+      aria-label={nav.langAria}
+      hrefLang={nav.langHref === "/" ? "uk" : "en"}
+      className="kicker u-link"
+    >
+      {nav.langLabel}
+    </Link>
+  );
+
+  const ctaLink = (
+    <a href="#brief" className="kicker u-link inline-flex items-center gap-2 whitespace-nowrap lg:tracking-[0.14em] xl:tracking-[0.24em]">
+      {nav.cta}
+      <ArrowRight size={13} aria-hidden="true" />
+    </a>
+  );
 
   return (
     <>
-    <header
-      ref={ref}
-      data-over="true"
-      className="group fixed inset-x-0 top-0 z-50 border-b border-transparent transition-colors duration-300 data-[over=false]:border-line data-[over=false]:bg-paper/85 data-[over=false]:backdrop-blur-md"
-    >
       <a
-        href="#about"
-        className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[100] focus:bg-paper focus:px-4 focus:py-3 focus:text-ink"
+        href="#editorial"
+        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:bg-paper focus:px-4 focus:py-3 focus:text-ink"
       >
         {nav.skip}
       </a>
-      <nav
-        className="relative z-10 mx-auto flex h-[68px] w-full max-w-[1400px] items-center justify-between gap-4 px-5 text-ink md:px-10 lg:px-14"
-        aria-label="Main"
-      >
-        <a href="#top" aria-label={nav.home} className="block shrink-0" onClick={close}>
-          <Image src={logo} alt="" priority className="h-[18px] w-auto md:h-5" />
-        </a>
 
-        <ul className="hidden items-center gap-10 lg:flex">
-          {links.map((l) => (
-            <li key={l.href}>
-              <a href={l.href} className="nav-link" aria-current={active === l.href.slice(1) ? "true" : undefined}>
-                {l.label}
-              </a>
-            </li>
-          ))}
-        </ul>
-
-        <div className="flex items-center gap-1 md:gap-4">
-          <Link
-            href={nav.langHref}
-            aria-label={nav.langAria}
-            hrefLang={nav.langHref === "/" ? "uk" : "en"}
-            className="nav-link grid h-11 min-w-11 place-items-center"
-          >
-            {nav.langLabel}
-          </Link>
-          <a href="#brief" className="btn hidden min-h-11 px-6 text-[0.72rem] lg:inline-flex">
-            {nav.cta}
+      <header className="sticky top-0 z-50 border-b border-line bg-paper lg:static">
+        {/* Desktop masthead */}
+        <div ref={mastRef} className="hidden lg:block">
+          <div className="wrap grid h-12 grid-cols-[1fr_auto_1fr] items-center gap-6">
+            <div>{langLink}</div>
+            <nav aria-label="Main">{sectionLinks}</nav>
+            <div className="justify-self-end">{ctaLink}</div>
+          </div>
+          <a href="#top" aria-label={nav.home} className="flex flex-col items-center border-t border-line py-7">
+            <Image src={logo} alt="" preload className="h-[30px] w-auto" />
+            <span className="kicker mt-3 text-[0.62rem] tracking-[0.46em]">{nav.tagline}</span>
           </a>
+        </div>
+
+        {/* Phone row */}
+        <div className="wrap grid h-14 grid-cols-[3rem_1fr_3rem] items-center lg:hidden">
           <button
             type="button"
-            className="grid h-11 w-11 place-items-center lg:hidden"
+            className="-ml-3 grid h-11 w-11 place-items-center"
             aria-expanded={open}
             aria-controls="mobile-menu"
             aria-label={open ? nav.menuClose : nav.menuOpen}
             onClick={() => setOpen((v) => !v)}
           >
-            {open ? <X size={24} aria-hidden="true" /> : <List size={24} aria-hidden="true" />}
+            {open ? <X size={22} aria-hidden="true" /> : <List size={22} aria-hidden="true" />}
           </button>
+          <a href="#top" aria-label={nav.home} onClick={close} className="flex flex-col items-center justify-self-center">
+            <Image src={logo} alt="" className="h-[13px] w-auto" />
+            <span className="kicker mt-1.5 text-[0.5rem] tracking-[0.36em]">{nav.tagline}</span>
+          </a>
+          <div className="grid h-11 min-w-11 place-items-center justify-self-end">{langLink}</div>
         </div>
-      </nav>
-    </header>
+      </header>
+
+      {/* Desktop slim bar, shown after the masthead scrolls away. */}
+      <div
+        className={`fixed inset-x-0 top-0 z-50 hidden border-b border-line bg-paper/95 backdrop-blur-md transition-transform duration-500 ease-[cubic-bezier(0.2,0.7,0.2,1)] lg:block ${
+          compact ? "translate-y-0" : "-translate-y-full"
+        }`}
+        aria-hidden={!compact}
+        inert={!compact}
+      >
+        <div className="wrap grid h-12 grid-cols-[1fr_auto_1fr] items-center gap-6">
+          <a href="#top" aria-label={nav.home} className="hidden justify-self-start xl:block">
+            <Image src={logo} alt="" className="h-[13px] w-auto max-w-none" />
+          </a>
+          <nav aria-label="Main, compact" className="col-start-2">{sectionLinks}</nav>
+          <div className="col-start-3 flex items-center gap-6 justify-self-end">
+            <span className="hidden xl:inline">{langLink}</span>
+            {ctaLink}
+          </div>
+        </div>
+      </div>
 
       {/*
-        Full-screen mobile menu. It lives outside <header> on purpose: the header's
-        backdrop-filter would turn it into the containing block and clip a fixed child.
-        z-40 keeps it under the header, so the logo and close button stay on top.
+        Full-screen phone menu. It sits under the sticky row (z-40), so the logo
+        and close button stay on top.
       */}
       <div
         id="mobile-menu"
@@ -145,20 +167,21 @@ export function Nav({ nav }: { nav: Dict["nav"] }) {
         aria-hidden={!open}
         inert={!open}
       >
-        <div className="flex h-full flex-col px-5 pb-10 pt-[100px] md:px-10">
-          <ul className="space-y-1">
-            {links.map((l, i) => (
+        <div className="flex h-full flex-col px-5 pb-10 pt-24 md:px-10">
+          <ul className="border-t border-line">
+            {nav.links.map((l, i) => (
               <li
                 key={l.href}
-                className="transition-[opacity,transform] duration-500"
+                className="border-b border-line transition-[opacity,transform] duration-500"
                 style={{
                   transitionDelay: open ? `${80 + i * 60}ms` : "0ms",
                   opacity: open ? 1 : 0,
-                  transform: open ? "none" : "translateY(16px)",
+                  transform: open ? "none" : "translateY(14px)",
                 }}
               >
-                <a href={l.href} onClick={close} className="block py-3 font-display text-[2.4rem] font-light leading-tight">
-                  {l.label}
+                <a href={l.href} onClick={close} className="flex items-baseline justify-between py-4">
+                  <span className="font-serif text-[1.9rem] leading-tight">{l.label}</span>
+                  <span className="kicker text-muted">{String(i + 1).padStart(2, "0")}</span>
                 </a>
               </li>
             ))}
@@ -166,6 +189,7 @@ export function Nav({ nav }: { nav: Dict["nav"] }) {
           <div className="mt-auto">
             <a href="#brief" onClick={close} className="btn w-full">
               {nav.cta}
+              <ArrowRight size={16} aria-hidden="true" />
             </a>
           </div>
         </div>

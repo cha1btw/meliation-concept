@@ -4,6 +4,7 @@ import { useId, useState } from "react";
 import { WhatsappLogo } from "@phosphor-icons/react/dist/ssr";
 import type { Dict } from "@/content/types";
 import { whatsappLink } from "@/lib/site";
+import { Kicker } from "./ui/Kicker";
 
 type GroupId = Dict["brief"]["groups"][number]["id"];
 
@@ -25,13 +26,11 @@ export function BriefBuilder({ brief }: { brief: Dict["brief"] }) {
   const message = [brief.greeting, "", ...body].join("\n").trim();
 
   return (
-    <section id="brief" className="sect tone-sand scroll-mt-20" aria-labelledby="brief-title">
-      <div className="mx-auto grid w-full max-w-[1400px] grid-cols-1 gap-14 px-5 md:px-10 lg:grid-cols-12 lg:gap-10 lg:px-14">
+    <section id="brief" className="sect bg-bone" aria-labelledby="brief-title">
+      <div className="wrap grid grid-cols-1 gap-14 lg:grid-cols-12 lg:gap-x-10">
         <div className="lg:col-span-7">
-          <h2
-            id="brief-title"
-            className="reveal t-display max-w-[16ch]"
-          >
+          <Kicker className="reveal">{brief.kicker}</Kicker>
+          <h2 id="brief-title" className="reveal t-display mt-7 max-w-[16ch]">
             {brief.title}
           </h2>
           <p className="reveal t-lead mt-7">{brief.intro}</p>
@@ -39,7 +38,7 @@ export function BriefBuilder({ brief }: { brief: Dict["brief"] }) {
           <form className="mt-14 space-y-10" onSubmit={(e) => e.preventDefault()}>
             {brief.groups.map((g) => (
               <fieldset key={g.id}>
-                <legend className="mb-4 text-[0.95rem] font-medium">{g.legend}</legend>
+                <legend className="kicker mb-4">{g.legend}</legend>
                 <div className="flex flex-wrap gap-2.5">
                   {g.options.map((o) => {
                     const id = `${uid}-${g.id}-${o.value}`;
@@ -47,7 +46,7 @@ export function BriefBuilder({ brief }: { brief: Dict["brief"] }) {
                       <label
                         key={o.value}
                         htmlFor={id}
-                        className="inline-flex min-h-11 cursor-pointer items-center border border-control px-4 text-[0.95rem] transition-colors hover:border-ink has-checked:border-accent-strong has-checked:bg-accent-strong has-checked:text-on-accent has-focus-visible:outline-2 has-focus-visible:outline-offset-2 has-focus-visible:outline-accent"
+                        className="inline-flex min-h-11 cursor-pointer items-center border border-control px-4 text-[0.95rem] transition-colors hover:border-ink has-checked:border-ink has-checked:bg-ink has-checked:text-on-ink has-focus-visible:outline-2 has-focus-visible:outline-offset-2 has-focus-visible:outline-ink"
                       >
                         <input
                           id={id}
@@ -67,7 +66,7 @@ export function BriefBuilder({ brief }: { brief: Dict["brief"] }) {
             ))}
 
             <div className="flex flex-col gap-2">
-              <label htmlFor={`${uid}-comment`} className="text-[0.95rem] font-medium">
+              <label htmlFor={`${uid}-comment`} className="kicker">
                 {brief.commentLabel}
               </label>
               <textarea
@@ -78,7 +77,7 @@ export function BriefBuilder({ brief }: { brief: Dict["brief"] }) {
                 value={comment}
                 onChange={(e) => setComment(e.target.value)}
                 aria-describedby={`${uid}-comment-help`}
-                className="w-full resize-y border border-control bg-transparent px-4 py-3 text-base leading-relaxed transition-colors focus:border-accent-strong"
+                className="w-full resize-y border border-control bg-paper px-4 py-3 text-base leading-relaxed transition-colors focus:border-ink"
               />
               <p id={`${uid}-comment-help`} className="text-sm text-muted">
                 {brief.commentHelp}
@@ -90,12 +89,12 @@ export function BriefBuilder({ brief }: { brief: Dict["brief"] }) {
         {/* Live preview of the exact text that will open in WhatsApp. */}
         <aside className="lg:col-span-5" aria-labelledby={`${uid}-preview`}>
           <div className="lg:sticky lg:top-28">
-            <p id={`${uid}-preview`} className="text-[0.95rem] font-medium">
+            <p id={`${uid}-preview`} className="kicker">
               {brief.previewLabel}
             </p>
             <div className="mt-4 border border-line bg-paper p-6 md:p-8" aria-live="polite">
-              <p className="font-display text-xl font-normal leading-snug">{brief.greeting}</p>
-              <dl className="mt-6 space-y-3 text-[0.98rem]">
+              <p className="font-serif text-xl leading-snug">{brief.greeting}</p>
+              <dl className="mt-6 space-y-3 border-t border-line pt-6 text-[0.98rem]">
                 {lines.map((l) => (
                   <div key={l.id} className="flex gap-3">
                     <dt className="w-24 shrink-0 text-muted">{l.label}</dt>
