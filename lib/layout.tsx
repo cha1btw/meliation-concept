@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Jost, Noto_Serif_Display } from "next/font/google";
+import { Manrope, Noto_Serif_Display } from "next/font/google";
 import type { Dict } from "@/content/types";
 
 // Editorial pairing: a Didone serif (razor-thin hairlines, heavy stems, like the PORTER masthead letter)
@@ -12,8 +12,8 @@ const serif = Noto_Serif_Display({
   display: "swap",
 });
 
-const sans = Jost({
-  variable: "--font-jost",
+const sans = Manrope({
+  variable: "--font-sans-body",
   subsets: ["latin", "cyrillic"],
   weight: ["300", "400", "500"],
   display: "swap",

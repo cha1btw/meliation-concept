@@ -4,7 +4,7 @@ A redesign concept for [Meliation](https://instagram.com/meliation), a fabric so
 
 ## What's inside
 
-- **Editorial Ink design** in the spirit of NET-A-PORTER / PORTER magazine: white page, black type, 1px hairlines, Noto Serif Display (a Didone) for headlines and Jost for UI. The palette lives in the `:root` block of `app/globals.css`.
+- **Editorial Ink design** in the spirit of NET-A-PORTER / PORTER magazine: white page, black type, 1px hairlines, Noto Serif Display (a Didone) for headlines and Manrope for UI and body. The palette lives in the `:root` block of `app/globals.css`.
 - **M monogram.** A large serif M with the wordmark running down beside it sits over the top edge of the hero clip and the closing photo, like PORTER's P (`components/ui/Monogram.tsx`, `.monogram` in CSS).
 - **Masthead** with section links and the centred wordmark; a slim bar slides in once it scrolls away. Full-screen menu on phones.
 - **Sections:** hero (clip of Melissa in the showroom), founder's letter (portrait, pull quote, two text columns with a drop cap), industry challenges (black hairline grid), the Istanbul advantage (media and text swap sides), lab services (native `<details>`), the method with a photo strip, client reviews slider, brief builder, FAQ, closing spread.
@@ -16,7 +16,7 @@ A redesign concept for [Meliation](https://instagram.com/meliation), a fabric so
 
 ## Stack
 
-Next.js 16 (App Router, static prerender), React 19, TypeScript, Tailwind CSS 4, Noto Serif Display + Jost, Phosphor icons. No animation libraries.
+Next.js 16 (App Router, static prerender), React 19, TypeScript, Tailwind CSS 4, Noto Serif Display + Manrope, Phosphor icons. No animation libraries.
 
 ## Run locally
 
