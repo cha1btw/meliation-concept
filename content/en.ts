@@ -45,29 +45,6 @@ export const en: Dict = {
     photoAlt: "Melissa laughing in an armchair among rolls of embellished fabric",
     caption: "Melissa, founder of Meliation. Istanbul",
   },
-  challenges: {
-    kicker: "The industry challenges",
-    title: "For founders only: the technical challenges of the backstage",
-    items: [
-      {
-        label: "Communication",
-        text: "It is hard to explain the fit of a jacket or the architecture of a seam to a factory from far away.",
-      },
-      {
-        label: "Volumes",
-        text: "Large factories turn down limited capsule collections because of their MOQ.",
-      },
-      {
-        label: "Risks",
-        text: "Unexpected defects in a batch, pattern layout mistakes and burnt budgets.",
-      },
-      {
-        label: "Sourcing",
-        text: "Buying fabric blind from photos, without feeling the hand or seeing the real shade.",
-      },
-    ],
-    link: "How the lab solves each of them",
-  },
   istanbul: {
     kicker: "The Istanbul advantage",
     title: "A strategic choice: why Istanbul, right now?",
@@ -197,8 +174,8 @@ export const en: Dict = {
           "Finding the right shade and texture of silk was always a challenge for our brand. Melissa found the cloth we needed in a closed stock in Istanbul in just two days! Now we only work through Meliation Fashion Production Lab: it means European-quality fabrics without spending weeks searching on our own.",
         name: "Anna",
         role: "brand founder",
-        photo: "silkHands",
-        alt: "Hands unfolding peach-coloured silk",
+        photo: "reviewAnna",
+        alt: "Anna, brand founder, in a brown knitted dress with a high neck",
       },
       {
         focus: "Quality control",
@@ -206,8 +183,8 @@ export const en: Dict = {
           "The biggest fear when working with Türkiye is getting a defective batch and finding out only in Ukraine. Thanks to Melissa that fear is gone. She personally oversaw every stage of our first capsule drop in Istanbul, from the first PPS sample to packing. The seams are truly high-level. Meliation really is a concierge service for our backstage.",
         name: "Maria",
         role: "brand creative director",
-        photo: "draping",
-        alt: "Draping a jacket toile on a dress form",
+        photo: "reviewMaria",
+        alt: "Maria, brand creative director, in a black silk set",
       },
       {
         focus: "Logistics",
@@ -215,8 +192,8 @@ export const en: Dict = {
           "Melissa is our superpower in Istanbul. Her Turkish and knowledge of the local market let us solve a factory issue in real time while our campaign deadline was burning. The batch reached Kyiv in 5 days, perfectly packed and ready to sell. I sincerely recommend her to anyone who values their time and peace of mind.",
         name: "Daria",
         role: "brand CEO",
-        photo: "machineFoot",
-        alt: "Sewing machine foot stitching beige fabric",
+        photo: "reviewDaria",
+        alt: "Daria, brand CEO, in a black dress with feather trim",
       },
     ],
   },

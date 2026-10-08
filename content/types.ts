@@ -1,16 +1,16 @@
 export type PhotoKey =
   | "melissaPortrait"
   | "fabricHands"
-  | "draping"
-  | "machineFoot"
   | "needle"
   | "patternWall"
   | "measuring"
   | "threadCones"
-  | "silkHands"
   | "jacquardRolls"
   | "labDips"
-  | "rollsLight";
+  | "rollsLight"
+  | "reviewAnna"
+  | "reviewMaria"
+  | "reviewDaria";
 
 export type VideoKey = "melissaShowroom" | "tulleHands";
 
@@ -42,12 +42,6 @@ export type Dict = {
     paragraphs: string[];
     photoAlt: string;
     caption: string;
-  };
-  challenges: {
-    kicker: string;
-    title: string;
-    items: { label: string; text: string }[];
-    link: string;
   };
   istanbul: {
     kicker: string;

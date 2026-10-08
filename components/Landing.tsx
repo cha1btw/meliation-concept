@@ -2,7 +2,6 @@ import type { Dict } from "@/content/types";
 import { Nav } from "./Nav";
 import { Hero } from "./Hero";
 import { FounderLetter } from "./FounderLetter";
-import { Challenges } from "./Challenges";
 import { Istanbul } from "./Istanbul";
 import { Services } from "./Services";
 import { Process } from "./Process";
@@ -19,7 +18,6 @@ export function Landing({ dict }: { dict: Dict }) {
       <main>
         <Hero hero={dict.hero} tagline={dict.nav.tagline} />
         <FounderLetter founder={dict.founder} />
-        <Challenges challenges={dict.challenges} />
         <Istanbul istanbul={dict.istanbul} />
         <Services services={dict.services} />
         <Process process={dict.process} />
