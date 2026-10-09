@@ -2,7 +2,7 @@ export type PhotoKey =
   | "melissaPortrait"
   | "silkHands"
   | "fabricHands"
-  | "needle"
+  | "trims"
   | "patternWall"
   | "measuring"
   | "threadCones"

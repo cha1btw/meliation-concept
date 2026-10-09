@@ -109,8 +109,8 @@ export const en: Dict = {
         tag: "Additional service",
         title: "Trim & Hardware Sourcing",
         text: "Custom hardware, buttons, zippers, premium packaging and branded labels that give a piece its finished, luxurious look.",
-        photo: "needle",
-        alt: "Needle of an industrial sewing machine with copper thread",
+        photo: "trims",
+        alt: "Fabrics, a zipper, metal hardware, scissors and a spool of thread on a table",
       },
       {
         tag: "Additional service",

@@ -4,7 +4,7 @@ import type { PhotoKey, VideoKey } from "@/content/types";
 import melissaPortrait from "@/public/assets/editorial/melissa-portrait.webp";
 import silkHands from "@/public/assets/editorial/silk-hands.webp";
 import fabricHands from "@/public/assets/editorial/fabric-hands.webp";
-import needle from "@/public/assets/editorial/needle.webp";
+import trims from "@/public/assets/editorial/trims.webp";
 import patternWall from "@/public/assets/editorial/pattern-wall.webp";
 import measuring from "@/public/assets/editorial/measuring.webp";
 import threadCones from "@/public/assets/editorial/thread-cones.webp";
@@ -33,7 +33,7 @@ export const photos: Record<PhotoKey, StaticImageData> = {
   melissaPortrait,
   silkHands,
   fabricHands,
-  needle,
+  trims,
   patternWall,
   measuring,
   threadCones,
