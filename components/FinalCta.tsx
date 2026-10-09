@@ -7,7 +7,7 @@ import { Monogram } from "./ui/Monogram";
 /* Closing spread: copy on bone, the studio photo with the monogram over its top edge. */
 export function FinalCta({ cta, tagline }: { cta: Dict["cta"]; tagline: string }) {
   return (
-    <section className="grid border-t border-line bg-bone md:grid-cols-2" aria-labelledby="cta-title">
+    <section className="grid overflow-hidden border-t border-line bg-bone md:grid-cols-2" aria-labelledby="cta-title">
       <div className="mono-offset relative md:order-2">
         <Monogram tagline={tagline} className="left-4 md:left-8" />
         <div className="reveal-img relative aspect-[4/5] overflow-hidden md:aspect-auto md:h-full md:min-h-[78svh]">

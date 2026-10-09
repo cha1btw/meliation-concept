@@ -3,9 +3,9 @@ import type { Dict } from "./types";
 export const en: Dict = {
   lang: "en",
   meta: {
-    title: "Meliation Fashion Production Lab | Fabric sourcing and apparel production in Istanbul",
+    title: "Meliation Fashion Production Lab | Textile sourcing and fabric buying in Istanbul",
     description:
-      "A concierge service for textile sourcing and turnkey apparel production in Istanbul. Premium fabrics, flexible MOQ and on-site quality control.",
+      "A concierge service for textile sourcing and fabric buying in Istanbul: premium textures, European deadstock, custom cloths and logistics to Ukraine.",
   },
   nav: {
     links: [
@@ -26,24 +26,49 @@ export const en: Dict = {
     menuClose: "Close menu",
   },
   hero: {
-    kicker: "The new era of supply chain",
-    title: "Scale your fashion creativity into a high-level commercial product.",
-    text: "A concierge service for textile sourcing and turnkey apparel production in Istanbul. Professional supply chain, precise sourcing of premium fabrics and full collection management, without production mishaps or burnt budgets.",
-    cta: "Discover the lab services",
-    videoAlt: "Melissa looking through embellished fabrics in an Istanbul showroom",
+    kicker: "Textile sourcing & buying",
+    title: "The aesthetics and commercial success of your brand begin with the material.",
+    text: "A concierge service for professional textile sourcing, selection and turnkey fabric buying in Istanbul. We find premium textures, innovative cloths and closed European deadstock for your collections. Full support: from the first swatch to logistics to Ukraine.",
+    cta: "Order fabric sourcing",
+    videoAlt: "Hands sorting embellished tulle on a showroom rail",
   },
   founder: {
     kicker: "The founder’s letter",
     title: "An insider who knows the industry from within",
-    quote: "“Your design deserves flawless execution. No compromises.”",
+    quote: "“Even the most brilliant sketch will die if it is sewn from the wrong or cheap fabric.”",
     signature: "Melissa",
     paragraphs: [
-      "Hi! My name is Melissa, and I am the founder of Meliation Fashion Production Lab.",
-      "For more than 10 years my professional life belonged to fashion retail in Kyiv. I went from working in top retail chains to coordinating processes for local commercial brands. I know how fashion is made: from the first passionate moodboard of a collection to the final sold-out on the rails.",
-      "Moving to Istanbul opened a new level for me: the epicentre of global textile development. Today I offer brands a concierge service for textile sourcing and turnkey apparel production in Istanbul. I speak fluent Turkish with factory owners and act as your trusted person on the ground.",
+      "Hi! My name is Melissa, and I am the founder of Meliation Fashion Production Lab, a textile expert and buyer in Istanbul.",
+      "For more than 10 years my professional life belonged to fashion retail in Ukraine: from top retail chains to coordinating processes for local commercial brands. I know how fashion is made: from the first moodboard of a collection to the final sold-out on the rails.",
+      "Over the years in fashion retail I understood one truth: even the most brilliant designer sketch will die if it is sewn from the wrong or cheap fabric. When I moved to Istanbul, my goal was to become the eyes and hands of Ukrainian brands in this ocean of textiles.",
+      "I know how a quality fabric sounds and feels to the touch, and my main mission at Meliation Fashion Production Lab is to find you that one perfect material. I speak fluent Turkish with factory and warehouse owners and act as your trusted person on the ground.",
     ],
     photoAlt: "Melissa laughing in an armchair among rolls of embellished fabric",
-    caption: "Melissa, founder of Meliation. Istanbul",
+    caption: "Melissa, founder of Meliation. Textile Expert & Buyer, Istanbul",
+  },
+  sourcing: {
+    kicker: "Textile procurement",
+    title: "Our sourcing directions",
+    items: [
+      {
+        label: "Premium & Trending Textiles",
+        text: "Sourcing and buying the season’s trending fabrics (silk, linen, cotton, wool) straight from Turkey’s top mills. Full analysis of weight, creasing and colour to match your Pantones and moodboards.",
+        photo: "silkHands",
+        alt: "Hands smoothing out peach-coloured silk",
+      },
+      {
+        label: "Exclusive European Deadstock",
+        text: "Access to closed Istanbul warehouses with leftover fabric from European luxury brands. A chance to find exclusive materials in small yardage for limited capsule drops.",
+        photo: "threadCones",
+        alt: "A warehouse of beige yarn cones",
+      },
+      {
+        label: "Custom Textile Development",
+        text: "Custom cloth made to order: a unique weave, branded jacquard, bespoke dyeing or your own prints applied digitally to textile.",
+        photo: "jacquardRolls",
+        alt: "Rolls of jacquard fabric with different patterns",
+      },
+    ],
   },
   istanbul: {
     kicker: "The Istanbul advantage",
@@ -53,7 +78,7 @@ export const en: Dict = {
         label: "Fast fashion logistics",
         title: "Speed and flexibility",
         text: "Unlike Asia, the production cycle in Istanbul lets you react to trends instantly. Cargo to Ukraine takes a matter of days, which is ideal for quick capsule releases and fast restocks of your sold-out pieces.",
-        media: { kind: "video", video: "tulleHands", alt: "Hands sorting embellished tulle on a showroom rail" },
+        media: { kind: "video", video: "melissaShowroom", alt: "Melissa looking through embellished fabrics in an Istanbul showroom" },
       },
       {
         label: "High-end production",
@@ -71,75 +96,28 @@ export const en: Dict = {
   },
   services: {
     kicker: "Our lab services",
-    title: "From fabric to finished batch",
-    intro: "Come with a precise request. Or just with an idea.",
-    more: "What’s included",
-    photoAlt: "Hands feeling a beige cloth next to a roll of fabric",
+    title: "A full-cycle service: from finding the thread to the finished rail",
     items: [
       {
-        title: "Fabric sourcing",
-        short: "I find the cloth you need or offer alternatives.",
-        details: [
-          "Sourcing and buying fabric across Türkiye",
-          "Matched to your collection and technical needs",
-          "Alternatives at different price points",
-          "Swatches and colour cards",
-          "Stock, lead time and MOQ checks",
-          "Trims, thread, lining, interfacing",
-        ],
+        tag: "Main service",
+        title: "Turnkey textile sourcing and buying",
+        text: "Analysis of your request, searching for suppliers in Istanbul, checking material quality in person, assembling and shipping a physical set of swatches to Ukraine. Buying whole lots at the best insider prices.",
+        photo: "fabricHands",
+        alt: "Hands feeling a beige cloth next to a roll of fabric",
       },
       {
-        title: "Print development",
-        short: "From an idea to a print on the chosen fabric.",
-        details: [
-          "Finding and selecting prints for your idea",
-          "Adapting the artwork to the fabric and technique",
-          "Digital, screen and sublimation printing",
-          "Colour and strike-off control",
-        ],
+        tag: "Additional service",
+        title: "Trim & Hardware Sourcing",
+        text: "Custom hardware, buttons, zippers, premium packaging and branded labels that give a piece its finished, luxurious look.",
+        photo: "needle",
+        alt: "Needle of an industrial sewing machine with copper thread",
       },
       {
-        title: "Factory search",
-        short: "The right factory for your product and volume.",
-        details: [
-          "A factory that fits your product",
-          "Compared on price, quality and capacity",
-          "Negotiating terms and minimum runs",
-          "Visits to showrooms and factories with you",
-        ],
-      },
-      {
-        title: "Collection development and production",
-        short: "From the first sample to the finished batch.",
-        details: [
-          "Sample from a reference or a sketch",
-          "Pattern making and the first sample",
-          "Fitting rounds up to the PPS sample",
-          "Small and large runs",
-          "Cutting, sewing, pressing, packing",
-          "Print, embroidery, special finishes",
-        ],
-      },
-      {
-        title: "Branding and packaging",
-        short: "Labels, tags and packaging with your logo.",
-        details: [
-          "Woven and care labels",
-          "Branded hang tags",
-          "Branded bags and boxes",
-          "Trims with your logo",
-        ],
-      },
-      {
-        title: "Production follow-up and QC",
-        short: "Communication, control and decisions on site.",
-        details: [
-          "Deadlines and day-to-day factory questions",
-          "Inspection before shipping",
-          "Regular production reports",
-          "Logistics and cargo shipping",
-          "Translation and support in negotiations",
-        ],
+        tag: "Additional service",
+        title: "Production Management & QC",
+        text: "For brands that buy fabric from us: we carry it into production. We select proven Turkish factories, oversee sample sewing and run the final Quality Control (QC) of finished garments before cargo shipping.",
+        photo: "measuring",
+        alt: "Taking measurements on a dress form with a tape",
       },
     ],
   },
@@ -147,17 +125,11 @@ export const en: Dict = {
     kicker: "The method",
     title: "How we work",
     steps: [
-      { verb: "Request", text: "We go through your idea, product, budget and timing." },
-      { verb: "Sourcing", text: "I select materials, suppliers and the factory." },
-      { verb: "Sample", text: "We make and refine the sample until you say yes." },
-      { verb: "Production", text: "I launch the batch and oversee it on site." },
-      { verb: "Shipping", text: "I check the result and arrange delivery." },
-    ],
-    strip: [
-      { photo: "threadCones", alt: "Close-up of beige thread cones" },
-      { photo: "measuring", alt: "Taking measurements on a dress form with a tape" },
-      { photo: "needle", alt: "Needle of an industrial sewing machine with copper thread" },
-      { photo: "jacquardRolls", alt: "Rolls of jacquard fabric" },
+      { verb: "Request", text: "We go through your idea, moodboard, budget and timing." },
+      { verb: "Sourcing", text: "I search for fabrics and suppliers in Istanbul and check quality in person." },
+      { verb: "Swatches", text: "I assemble and ship a physical set of swatches to Ukraine." },
+      { verb: "Buying", text: "I buy the fabrics you choose at insider prices." },
+      { verb: "Logistics", text: "I pack the rolls and arrange fast delivery to Ukraine." },
     ],
   },
   journal: {
@@ -173,7 +145,7 @@ export const en: Dict = {
         quote:
           "Finding the right shade and texture of silk was always a challenge for our brand. Melissa found the cloth we needed in a closed stock in Istanbul in just two days! Now we only work through Meliation Fashion Production Lab: it means European-quality fabrics without spending weeks searching on our own.",
         name: "Anna",
-        role: "brand founder",
+        role: "founder, Aurelle Studio",
         photo: "reviewAnna",
         alt: "Anna, brand founder, in a brown knitted dress with a high neck",
       },
@@ -182,7 +154,7 @@ export const en: Dict = {
         quote:
           "The biggest fear when working with Türkiye is getting a defective batch and finding out only in Ukraine. Thanks to Melissa that fear is gone. She personally oversaw every stage of our first capsule drop in Istanbul, from the first PPS sample to packing. The seams are truly high-level. Meliation really is a concierge service for our backstage.",
         name: "Maria",
-        role: "brand creative director",
+        role: "creative director, Kovalt Atelier",
         photo: "reviewMaria",
         alt: "Maria, brand creative director, in a black silk set",
       },
@@ -191,9 +163,36 @@ export const en: Dict = {
         quote:
           "Melissa is our superpower in Istanbul. Her Turkish and knowledge of the local market let us solve a factory issue in real time while our campaign deadline was burning. The batch reached Kyiv in 5 days, perfectly packed and ready to sell. I sincerely recommend her to anyone who values their time and peace of mind.",
         name: "Daria",
-        role: "brand CEO",
+        role: "CEO, Mirabel Haus",
         photo: "reviewDaria",
         alt: "Daria, brand CEO, in a black dress with feather trim",
+      },
+      {
+        focus: "Texture & moodboard",
+        quote:
+          "We were looking for a specific heavy denim with a vintage wash and a matte suiting wool that would hold an architectural shape perfectly. Positions like these simply did not exist in Ukraine. Melissa from Meliation Fashion Production Lab did precise textile sourcing for us in Istanbul: she sent incredible macro videos, described the hand of every article in detail and put together a swatch set within a few days. When the swatches arrived at our office, it was a 100% match with our moodboards. Now we trust all our fabric buying to her alone.",
+        name: "Valeriia",
+        role: "creative director, Sevrin Atelier",
+        photo: "reviewValeria",
+        alt: "Valeriia, brand creative director, in a brown suede outfit",
+      },
+      {
+        focus: "Deadstock & capsules",
+        quote:
+          "It is important for our brand to make pieces that do not repeat. Thanks to Melissa we got access to closed stocks of premium European fabrics (deadstock) in Istanbul. For our limited capsule she found just a few rolls of luxury-grade silk at a very pleasant cost. Melissa personally checked every metre for defects before buying. This is a true concierge service for brands that value the uniqueness of their raw materials.",
+        name: "Kristina",
+        role: "founder, Maison Tavira",
+        photo: "reviewKristina",
+        alt: "Kristina, brand founder, in a sheer brown blouse embroidered with crystals",
+      },
+      {
+        focus: "Digital sourcing & safety",
+        quote:
+          "Buying fabric “blind” in another country is always risky. But working with Meliation is built so professionally that there is no need to fly to Türkiye yourself. Melissa became our eyes and hands in the Istanbul textile market. She speaks fluent Turkish, knows the best suppliers, tests materials for creasing right on video and checks the yardage during buying at the factory. Safety, speed and impeccable taste.",
+        name: "Olena",
+        role: "CEO, Ilvane Studio",
+        photo: "reviewOlena",
+        alt: "Olena, brand CEO, in a black leather blazer and a skirt with red fringe",
       },
     ],
   },
@@ -218,10 +217,11 @@ export const en: Dict = {
         id: "need",
         legend: "What do you need?",
         options: [
-          { value: "fabric", label: "Fabrics only" },
-          { value: "factory", label: "A factory for my product" },
-          { value: "full", label: "Full cycle" },
-          { value: "branding", label: "Branding and packaging" },
+          { value: "fabric", label: "Fabric selection and buying" },
+          { value: "deadstock", label: "Deadstock fabrics" },
+          { value: "custom", label: "Custom cloth" },
+          { value: "trims", label: "Trims and packaging" },
+          { value: "full", label: "Fabrics and production" },
         ],
       },
       {
@@ -265,6 +265,10 @@ export const en: Dict = {
     title: "Questions and answers",
     items: [
       {
+        q: "Can I order only fabric selection and buying, without sewing?",
+        a: "Absolutely. Textile sourcing and buying is our flagship service. We help you find, test and buy the best materials in Istanbul, assemble a set of swatches for your team in Ukraine and arrange fast delivery of the rolls. And if you later need a proven factory for sewing, we will gladly offer our production management as an additional service.",
+      },
+      {
         q: "How much does production cost?",
         a: "It depends on the product, fabric, volume and complexity. I give an exact price after costing it at a specific factory with a specific fabric. Product development and launch preparation are a separate service with a fixed fee.",
       },
@@ -301,7 +305,7 @@ export const en: Dict = {
     photoAlt: "Rolls of printed fabric by a window in a sunlit studio",
   },
   footer: {
-    about: "A concierge service for textile sourcing and turnkey apparel production in Istanbul.",
+    about: "A concierge service for textile sourcing and turnkey fabric buying in Istanbul.",
     labTitle: "The lab",
     contactTitle: "Contact",
     cities: [

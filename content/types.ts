@@ -1,5 +1,6 @@
 export type PhotoKey =
   | "melissaPortrait"
+  | "silkHands"
   | "fabricHands"
   | "needle"
   | "patternWall"
@@ -10,7 +11,10 @@ export type PhotoKey =
   | "rollsLight"
   | "reviewAnna"
   | "reviewMaria"
-  | "reviewDaria";
+  | "reviewDaria"
+  | "reviewValeria"
+  | "reviewKristina"
+  | "reviewOlena";
 
 export type VideoKey = "melissaShowroom" | "tulleHands";
 
@@ -48,19 +52,20 @@ export type Dict = {
     title: string;
     items: { label: string; title: string; text: string; media: Media }[];
   };
+  sourcing: {
+    kicker: string;
+    title: string;
+    items: { label: string; text: string; photo: PhotoKey; alt: string }[];
+  };
   services: {
     kicker: string;
     title: string;
-    intro: string;
-    more: string;
-    photoAlt: string;
-    items: { title: string; short: string; details: string[] }[];
+    items: { tag: string; title: string; text: string; photo: PhotoKey; alt: string }[];
   };
   process: {
     kicker: string;
     title: string;
     steps: { verb: string; text: string }[];
-    strip: { photo: PhotoKey; alt: string }[];
   };
   journal: {
     kicker: string;

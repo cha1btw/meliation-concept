@@ -2,6 +2,7 @@ import type { StaticImageData } from "next/image";
 import type { PhotoKey, VideoKey } from "@/content/types";
 
 import melissaPortrait from "@/public/assets/editorial/melissa-portrait.webp";
+import silkHands from "@/public/assets/editorial/silk-hands.webp";
 import fabricHands from "@/public/assets/editorial/fabric-hands.webp";
 import needle from "@/public/assets/editorial/needle.webp";
 import patternWall from "@/public/assets/editorial/pattern-wall.webp";
@@ -12,6 +13,9 @@ import labDips from "@/public/assets/editorial/lab-dips.webp";
 import reviewAnna from "@/public/assets/editorial/review-anna.webp";
 import reviewMaria from "@/public/assets/editorial/review-maria.webp";
 import reviewDaria from "@/public/assets/editorial/review-daria.webp";
+import reviewValeria from "@/public/assets/editorial/review-valeria.webp";
+import reviewKristina from "@/public/assets/editorial/review-kristina.webp";
+import reviewOlena from "@/public/assets/editorial/review-olena.webp";
 import rollsLight from "@/public/assets/editorial/rolls-light.webp";
 
 export const contacts = {
@@ -27,6 +31,7 @@ export const contacts = {
 
 export const photos: Record<PhotoKey, StaticImageData> = {
   melissaPortrait,
+  silkHands,
   fabricHands,
   needle,
   patternWall,
@@ -38,6 +43,9 @@ export const photos: Record<PhotoKey, StaticImageData> = {
   reviewAnna,
   reviewMaria,
   reviewDaria,
+  reviewValeria,
+  reviewKristina,
+  reviewOlena,
 };
 
 // Vertical 720x1280 H.264 clips without audio; the poster is the first frame.

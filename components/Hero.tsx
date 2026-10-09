@@ -5,7 +5,7 @@ import { Kicker } from "./ui/Kicker";
 import { Monogram } from "./ui/Monogram";
 
 /*
-  A magazine cover: a large asymmetric clip on the left with the M monogram
+  A magazine cover: a large asymmetric fabric clip on the left with the M monogram
   over its top edge, the headline on the right with plenty of white space.
   Phones: the clip full bleed on top, copy below.
 */
@@ -17,10 +17,10 @@ export function Hero({ hero, tagline }: { hero: Dict["hero"]; tagline: string })
           <Monogram tagline={tagline} className="mono-in left-4 md:left-6 lg:left-8" />
           <div className="hero-media-in relative aspect-[4/5] overflow-hidden bg-bone md:aspect-[5/4] lg:aspect-auto lg:h-[clamp(520px,calc(100svh-19rem),860px)]">
             <AutoVideo
-              video="melissaShowroom"
+              video="tulleHands"
               alt={hero.videoAlt}
               eager
-              className="absolute inset-0 h-full w-full object-cover object-[60%_35%]"
+              className="absolute inset-0 h-full w-full object-cover object-center"
             />
           </div>
         </div>
@@ -38,7 +38,7 @@ export function Hero({ hero, tagline }: { hero: Dict["hero"]; tagline: string })
             {hero.text}
           </p>
           <div className="hero-in mt-10" style={{ animationDelay: "0.3s" }}>
-            <a href="#services" className="btn">
+            <a href="#brief" className="btn">
               {hero.cta}
               <ArrowRight size={16} aria-hidden="true" />
             </a>

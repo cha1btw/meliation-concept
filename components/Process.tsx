@@ -1,9 +1,7 @@
-import Image from "next/image";
 import type { Dict } from "@/content/types";
-import { photos } from "@/lib/site";
 import { Kicker } from "./ui/Kicker";
 
-/* Five steps between hairlines, then a contact sheet of studio details. */
+/* Five steps between hairlines: sourcing first, production comes after the fabric is bought. */
 export function Process({ process }: { process: Dict["process"] }) {
   return (
     <section id="process" className="sect" aria-labelledby="process-title">
@@ -26,25 +24,6 @@ export function Process({ process }: { process: Dict["process"] }) {
             </li>
           ))}
         </ol>
-
-        <ul className="mt-14 grid grid-cols-2 gap-2 md:gap-4 lg:mt-20 lg:grid-cols-4">
-          {process.strip.map((s, i) => (
-            <li
-              key={s.photo}
-              className="reveal-img relative aspect-[3/4] overflow-hidden bg-bone"
-              style={{ "--i": i } as React.CSSProperties}
-            >
-              <Image
-                src={photos[s.photo]}
-                alt={s.alt}
-                fill
-                placeholder="blur"
-                sizes="(min-width: 1024px) 25vw, 50vw"
-                className="object-cover"
-              />
-            </li>
-          ))}
-        </ul>
       </div>
     </section>
   );
