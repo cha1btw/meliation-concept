@@ -30,7 +30,7 @@ export const en: Dict = {
     title: "The aesthetics and commercial success of your brand begin with the material.",
     text: "A concierge service for professional textile sourcing, selection and turnkey fabric buying in Istanbul. We find premium textures, innovative cloths and closed European deadstock for your collections. Full support: from the first swatch to logistics to Ukraine.",
     cta: "Order fabric sourcing",
-    videoAlt: "Hands sorting embellished tulle on a showroom rail",
+    videoAlt: "Melissa looking through embellished fabrics in an Istanbul showroom",
   },
   founder: {
     kicker: "The founder’s letter",
@@ -78,7 +78,7 @@ export const en: Dict = {
         label: "Fast fashion logistics",
         title: "Speed and flexibility",
         text: "Unlike Asia, the production cycle in Istanbul lets you react to trends instantly. Cargo to Ukraine takes a matter of days, which is ideal for quick capsule releases and fast restocks of your sold-out pieces.",
-        media: { kind: "video", video: "melissaShowroom", alt: "Melissa looking through embellished fabrics in an Istanbul showroom" },
+        media: { kind: "video", video: "tulleHands", alt: "Hands sorting embellished tulle on a showroom rail" },
       },
       {
         label: "High-end production",

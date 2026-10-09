@@ -9,11 +9,11 @@ export const uk: Dict = {
   },
   nav: {
     links: [
-      { href: "#editorial", label: "Про засновницю" },
-      { href: "#istanbul", label: "Чому Стамбул" },
-      { href: "#services", label: "Послуги" },
-      { href: "#journal", label: "Відгуки" },
-      { href: "#faq", label: "Питання" },
+      { href: "#editorial", label: "Editorial" },
+      { href: "#istanbul", label: "Why Istanbul" },
+      { href: "#services", label: "Our Lab Services" },
+      { href: "#journal", label: "The B2B Journal" },
+      { href: "#faq", label: "FAQ" },
     ],
     tagline: "Fashion Production Lab",
     cta: "Обговорити проєкт",
@@ -26,14 +26,14 @@ export const uk: Dict = {
     menuClose: "Закрити меню",
   },
   hero: {
-    kicker: "Текстильний сорсинг і байїнг",
+    kicker: "Textile sourcing & buying",
     title: "Естетика та комерційний успіх твого бренду починаються з матеріалу.",
     text: "Авторський консьєрж-сервіс із професійного текстильного сорсингу, підбору та закупівлі тканин під ключ у Стамбулі. Знаходимо преміальні фактури, інноваційні полотна та закриті європейські стоки (deadstock) для твоїх колекцій. Повний супровід: від першого зразка до логістики в Україну.",
     cta: "Замовити сорсинг тканин",
-    videoAlt: "Руки перебирають розшитий фатин на рейлі шоуруму",
+    videoAlt: "Мелісса перебирає розшиті тканини в шоурумі у Стамбулі",
   },
   founder: {
-    kicker: "Лист засновниці",
+    kicker: "The founder’s letter",
     title: "Інсайдер, який знає індустрію зсередини",
     quote: "Навіть найгеніальніший ескіз помре, якщо його відшити з неправильної чи дешевої тканини.",
     signature: "Мелісса",
@@ -47,7 +47,7 @@ export const uk: Dict = {
     caption: "Мелісса, засновниця Meliation. Текстильна експертка та байєр, Стамбул",
   },
   sourcing: {
-    kicker: "Закупівля тканин",
+    kicker: "Textile procurement",
     title: "Наші напрямки сорсингу",
     items: [
       {
@@ -71,14 +71,14 @@ export const uk: Dict = {
     ],
   },
   istanbul: {
-    kicker: "Перевага Стамбула",
+    kicker: "The Istanbul advantage",
     title: "Стратегічний вибір: чому Стамбул прямо зараз?",
     items: [
       {
         label: "Швидка логістика",
         title: "Швидкість та гнучкість",
         text: "На відміну від Азії, виробничий цикл у Стамбулі дозволяє реагувати на тренди миттєво. Доставка карго до України триває лічені дні — це ідеально для релізів швидких капсул та оперативних дозамовлень позицій, які вже розпродані.",
-        media: { kind: "video", video: "melissaShowroom", alt: "Мелісса перебирає розшиті тканини в шоурумі у Стамбулі" },
+        media: { kind: "video", video: "tulleHands", alt: "Руки перебирають розшитий фатин на рейлі шоуруму" },
       },
       {
         label: "Преміальне виробництво",
@@ -95,7 +95,7 @@ export const uk: Dict = {
     ],
   },
   services: {
-    kicker: "Послуги лабораторії",
+    kicker: "Our lab services",
     title: "Сервіс повного циклу: від пошуку нитки до готового рейлу",
     items: [
       {
@@ -122,7 +122,7 @@ export const uk: Dict = {
     ],
   },
   process: {
-    kicker: "Метод роботи",
+    kicker: "The method",
     title: "Як ми працюємо",
     steps: [
       { verb: "Запит", text: "Розбираємо твою ідею, мудборд, бюджет і строки." },
@@ -133,10 +133,10 @@ export const uk: Dict = {
     ],
   },
   journal: {
-    kicker: "Відгуки клієнтів",
-    title: "Наші клієнти та партнери",
+    kicker: "The B2B journal",
+    title: "Our clients & partners",
     brands: [],
-    subtitle: "Що про нас кажуть фаундери",
+    subtitle: "Insider feedback: що про нас кажуть фаундери",
     prev: "Попередній відгук",
     next: "Наступний відгук",
     reviews: [
@@ -197,7 +197,7 @@ export const uk: Dict = {
     ],
   },
   brief: {
-    kicker: "Бриф",
+    kicker: "Start a brief",
     title: "Розкажи про свій проєкт",
     intro: "Чотири кліки, і в WhatsApp відкриється готове повідомлення. Я повернуся з конкретикою: фабрика, тканина, строк, ціна.",
     groups: [
@@ -261,7 +261,7 @@ export const uk: Dict = {
     notChosen: "ще не обрано",
   },
   faq: {
-    kicker: "Часті питання",
+    kicker: "FAQ",
     title: "Питання та відповіді",
     items: [
       {
@@ -306,8 +306,8 @@ export const uk: Dict = {
   },
   footer: {
     about: "Авторський консьєрж-сервіс із текстильного сорсингу та закупівлі тканин під ключ у Стамбулі.",
-    labTitle: "Лабораторія",
-    contactTitle: "Контакти",
+    labTitle: "The lab",
+    contactTitle: "Contact",
     cities: [
       { city: "Стамбул", role: "Виробництво та ринок", tz: "GMT+3" },
       { city: "Київ", role: "Зв’язок і розрахунки", tz: "GMT+2" },
